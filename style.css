@@ -2,12 +2,40 @@
    1. RESET & VARIABLES
    ========================================================= */
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* [TAHAP 1] Bootstrap Reboot sudah mengatur box-sizing dan margin dasar.
+   Reset universal (*) Week 2 diganti reset terarah supaya tampilan
+   Week 2 tetap sama tanpa merusak komponen Bootstrap. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-weight: 700;
+    line-height: inherit;
+}
+
+p,
+dl,
+dd {
+    margin: 0;
+}
+
+ul,
+ol {
     margin: 0;
     padding: 0;
+}
+
+legend {
+    float: none;
+    width: auto;
+    margin: 0;
+}
+
+caption {
+    caption-side: top;
 }
 
 :root {
@@ -101,9 +129,12 @@ ol {
     list-style-position: inside;
 }
 
+/* [TAHAP 1] .container disesuaikan agar menimpa aturan .container Bootstrap */
 .container {
     width: min(100% - 48px, var(--container));
+    max-width: var(--container);
     margin-inline: auto;
+    padding-inline: 0;
 }
 
 
@@ -379,7 +410,17 @@ ol {
     transform: translateY(-2px);
 }
 
+/* [TAHAP 1] Variabel --bs-btn-* adalah cara resmi menimpa warna tombol
+   Bootstrap tanpa !important */
 .btn-primary {
+    --bs-btn-color: #ffffff;
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-active-color: #ffffff;
+    --bs-btn-border-color: var(--mauve);
+    --bs-btn-hover-border-color: var(--mauve);
+    --bs-btn-active-border-color: var(--mauve);
+    --bs-btn-focus-shadow-rgb: 195, 142, 180;
+
     border: 1px solid var(--mauve);
     background: linear-gradient(120deg, var(--mauve) 0%, var(--mauve-dark) 100%);
     color: white;
@@ -392,6 +433,15 @@ ol {
 }
 
 .btn-outline {
+    --bs-btn-color: #ffffff;
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-active-color: #ffffff;
+    --bs-btn-hover-bg: rgba(134, 168, 207, 0.12);
+    --bs-btn-active-bg: rgba(134, 168, 207, 0.2);
+    --bs-btn-hover-border-color: var(--blue-soft);
+    --bs-btn-active-border-color: var(--blue-soft);
+    --bs-btn-focus-shadow-rgb: 134, 168, 207;
+
     border: 1px solid rgba(255, 255, 255, 0.25);
     background: transparent;
     color: #ffffff;
@@ -1947,6 +1997,11 @@ textarea {
 
 /* =========================================================
    19. REDUCED MOTION
+
+   Catatan !important: ini satu-satunya penggunaan !important di berkas
+   ini. Aturan aksesibilitas prefers-reduced-motion harus dapat menimpa
+   transition/animation apa pun di seluruh halaman, termasuk milik
+   Bootstrap, sehingga dikecualikan dan didokumentasikan di sini.
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
