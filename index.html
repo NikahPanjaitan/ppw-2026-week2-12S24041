@@ -27,105 +27,139 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<!-- [TAHAP 2] Scrollspy: menu aktif mengikuti posisi scroll -->
+<body
+    data-bs-spy="scroll"
+    data-bs-target="#mainNavbar"
+    data-bs-root-margin="-25% 0px -65% 0px"
+    tabindex="0"
+>
 
-    <!-- ================= HEADER ================= -->
+    <!-- ================= HEADER / NAVBAR ================= -->
+    <!-- [TAHAP 2] Navbar Bootstrap dengan hamburger (collapse) di bawah 992px -->
     <header class="site-header">
-        <div class="container nav-container">
+        <nav class="navbar navbar-expand-lg" aria-label="Navigasi utama">
+            <div class="container nav-container">
 
-            <a href="#beranda" class="logo">
-                <span class="logo-mark">N</span>
-                <span>Nikah Suchia</span>
-            </a>
+                <a href="#beranda" class="navbar-brand logo">
+                    <span class="logo-mark">N</span>
+                    <span>Nikah Suchia</span>
+                </a>
 
-            <nav aria-label="Navigasi utama">
-                <ul class="nav-list">
-                    <li><a href="#beranda" class="active">Beranda</a></li>
-                    <li><a href="#tentang">Tentang</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#portofolio">Portofolio</a></li>
-                    <li><a href="#riwayat">Riwayat</a></li>
-                    <li><a href="#kontak">Kontak</a></li>
-                </ul>
-            </nav>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar"
+                    aria-expanded="false"
+                    aria-label="Buka atau tutup menu navigasi"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        </div>
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav ms-auto nav-list">
+                        <li class="nav-item"><a href="#beranda" class="nav-link active">Beranda</a></li>
+                        <li class="nav-item"><a href="#tentang" class="nav-link">Tentang</a></li>
+                        <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+                        <li class="nav-item"><a href="#portofolio" class="nav-link">Portofolio</a></li>
+                        <li class="nav-item"><a href="#riwayat" class="nav-link">Riwayat</a></li>
+                        <li class="nav-item"><a href="#kontak" class="nav-link">Kontak</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
     </header>
 
 
     <main>
 
         <!-- ================= HERO ================= -->
+        <!-- [TAHAP 2] Hero memakai grid Bootstrap: row + col-lg-7 / col-lg-5 -->
         <section id="beranda" class="hero">
             <div class="container hero-container">
 
-                <div class="hero-content">
+                <div class="row align-items-center gy-4">
 
-                    <span class="eyebrow">
-                        S1 Sistem Informasi • Semester V
-                    </span>
+                    <div class="col-lg-7">
 
-                    <h1>
-                        Halo, saya
-                        <span>Nikah Suchia Panjaitan.</span>
-                    </h1>
+                        <div class="hero-content">
 
-                    <p class="hero-description">
-                        Mahasiswa Sistem Informasi yang tertarik pada pengembangan
-                        web, UI/UX, dan perancangan sistem informasi.
-                    </p>
+                            <span class="eyebrow">
+                                S1 Sistem Informasi • Semester V
+                            </span>
 
-                    <div class="hero-buttons">
-                        <a href="#portofolio" class="btn btn-primary">
-                            Lihat Portofolio
-                            <span>→</span>
-                        </a>
+                            <h1>
+                                Halo, saya
+                                <span>Nikah Suchia Panjaitan.</span>
+                            </h1>
 
-                        <a href="#kontak" class="btn btn-outline">
-                            Hubungi Saya
-                        </a>
-                    </div>
+                            <p class="hero-description">
+                                Mahasiswa Sistem Informasi yang tertarik pada pengembangan
+                                web, UI/UX, dan perancangan sistem informasi.
+                            </p>
 
-                    <div class="hero-info">
+                            <div class="hero-buttons">
+                                <a href="#portofolio" class="btn btn-primary">
+                                    Lihat Portofolio
+                                    <span>→</span>
+                                </a>
 
-                        <div>
-                            <strong>12S24041</strong>
-                            <span>NIM</span>
+                                <a href="#kontak" class="btn btn-outline">
+                                    Hubungi Saya
+                                </a>
+                            </div>
+
+                            <div class="hero-info">
+
+                                <div>
+                                    <strong>12S24041</strong>
+                                    <span>NIM</span>
+                                </div>
+
+                                <div>
+                                    <strong>IT Del</strong>
+                                    <span>Institusi</span>
+                                </div>
+
+                                <div>
+                                    <strong>Web & UI/UX</strong>
+                                    <span>Fokus</span>
+                                </div>
+
+                            </div>
+
                         </div>
-
-                        <div>
-                            <strong>IT Del</strong>
-                            <span>Institusi</span>
-                        </div>
-
-                        <div>
-                            <strong>Web & UI/UX</strong>
-                            <span>Fokus</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="hero-visual">
-
-                    <div class="photo-decoration"></div>
-
-                    <div class="profile-photo-wrapper">
-
-                        <img
-                            src="assets/foto-profil.jpg"
-                            alt="Foto profil Nikah Suchia Panjaitan"
-                            class="profile-photo"
-                        >
 
                     </div>
 
-                    <div class="photo-card">
-                        <span>STATUS</span>
-                        <strong>Mahasiswa Aktif</strong>
-                        <small>Semester V • Sistem Informasi</small>
+
+                    <div class="col-lg-5">
+
+                        <div class="hero-visual">
+
+                            <div class="photo-decoration"></div>
+
+                            <div class="profile-photo-wrapper">
+
+                                <img
+                                    src="assets/foto-profil.jpg"
+                                    alt="Foto profil Nikah Suchia Panjaitan"
+                                    class="profile-photo"
+                                >
+
+                            </div>
+
+                            <div class="photo-card">
+                                <span>STATUS</span>
+                                <strong>Mahasiswa Aktif</strong>
+                                <small>Semester V • Sistem Informasi</small>
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -135,6 +169,7 @@
 
 
         <!-- ================= QUICK SKILLS ================= -->
+        <!-- [TAHAP 2] Judul kecil diubah dari <h2> menjadi <strong> (label, bukan judul section) -->
         <section class="quick-skills" aria-label="Bidang yang sedang dipelajari">
 
             <div class="container quick-skills-grid">
@@ -142,7 +177,7 @@
                 <article class="quick-item">
                     <span class="quick-number">01</span>
                     <div>
-                        <h2>Web Development</h2>
+                        <strong class="quick-title">Web Development</strong>
                         <p>HTML5, CSS3 dan responsive interface.</p>
                     </div>
                 </article>
@@ -150,7 +185,7 @@
                 <article class="quick-item">
                     <span class="quick-number">02</span>
                     <div>
-                        <h2>UI/UX Design</h2>
+                        <strong class="quick-title">UI/UX Design</strong>
                         <p>User research, wireframe dan prototype.</p>
                     </div>
                 </article>
@@ -158,7 +193,7 @@
                 <article class="quick-item">
                     <span class="quick-number">03</span>
                     <div>
-                        <h2>System Analysis</h2>
+                        <strong class="quick-title">System Analysis</strong>
                         <p>Analisis kebutuhan dan perancangan sistem.</p>
                     </div>
                 </article>
@@ -166,7 +201,7 @@
                 <article class="quick-item">
                     <span class="quick-number accent-number">04</span>
                     <div>
-                        <h2>Student Project</h2>
+                        <strong class="quick-title">Student Project</strong>
                         <p>Mengerjakan berbagai proyek perkuliahan.</p>
                     </div>
                 </article>
@@ -320,7 +355,6 @@
                     </article>
 
                 </div>
-                <!-- [TAHAP 1] Tag </dl></article></div> yang nyangkut di sini sudah dihapus -->
 
             </div>
 
@@ -1055,6 +1089,27 @@
 
     <!-- [TAHAP 1] Bootstrap 5.3.3 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- [TAHAP 2] Menu hamburger otomatis menutup setelah link diklik (mobile) -->
+    <script>
+        (() => {
+            'use strict';
+
+            const menu = document.getElementById('mainNavbar');
+
+            if (!menu) {
+                return;
+            }
+
+            menu.querySelectorAll('.nav-link').forEach((link) => {
+                link.addEventListener('click', () => {
+                    if (menu.classList.contains('show')) {
+                        bootstrap.Collapse.getOrCreateInstance(menu).hide();
+                    }
+                });
+            });
+        })();
+    </script>
 
 </body>
 </html>
