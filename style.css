@@ -150,7 +150,6 @@ ol {
     width: min(100% - 48px, var(--container));
     max-width: var(--container);
     margin-inline: auto;
-    padding-inline: 0;
 }
 
 

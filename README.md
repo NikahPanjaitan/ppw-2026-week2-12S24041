@@ -1,182 +1,190 @@
-# Portfolio Nikah Suchia Panjaitan
+# Portfolio Nikah Suchia Panjaitan — Week 3
 
-## Deskripsi
-
-Website ini merupakan halaman portfolio mahasiswa yang dikembangkan sebagai
-implementasi Praktikum Week 2 pada Mata Kuliah Pemrograman dan Pengujian
-Aplikasi Web.
-
-Website dibuat dalam bentuk single-page portfolio menggunakan HTML5 dan CSS3.
-Halaman memuat informasi profil, bidang yang sedang dipelajari, skills,
-portofolio, riwayat mata kuliah, serta formulir konsultasi.
-
-Pengembangan website menerapkan struktur HTML5 semantik, penyajian data
-menggunakan list dan tabel, formulir interaktif yang memperhatikan
-aksesibilitas, serta desain antarmuka yang responsif menggunakan CSS modern.
+Dokumentasi Praktikum Pemrograman dan Pengujian Web (12S3101) — **Week 3: Refactoring Personal Portfolio Website Menggunakan Bootstrap 5.3 & Advanced Custom CSS**.
 
 ---
 
-## Identitas
+## Identitas Mahasiswa
 
 | Keterangan | Informasi |
 |---|---|
-| Nama | Nikah Suchia Panjaitan |
-| NIM | 12S24041 |
-| Program Studi | S1 Sistem Informasi |
-| Institusi | Institut Teknologi Del |
-| Semester | V |
+| **Nama** | Nikah Suchia Panjaitan |
+| **NIM** | 12S24041 |
+| **Program Studi** | S1 Sistem Informasi |
+| **Institusi** | Institut Teknologi Del |
+| **Mata Kuliah** | 12S3101 - Pemrograman dan Pengujian Web |
+| **Topik Praktikum** | Minggu 3: Integrasi Framework Bootstrap 5.3 & Komponen Modern |
 
 ---
 
-## Tujuan
+## Deskripsi Project
 
-Pembuatan website ini bertujuan untuk menerapkan konsep HTML5 dan CSS3 yang
-dipelajari pada praktikum, meliputi:
+Project ini merupakan kelanjutan dan *refactoring* tugas **Personal Portfolio Website Minggu 2** menjadi versi **Minggu 3** yang mengintegrasikan framework **Bootstrap 5.3.3**, **Bootstrap Icons 1.11.3**, sistem **Bootstrap Grid**, **Cards**, **Modals**, serta formulir modern (**Floating Labels**, **Input Groups**, dan validasi native HTML5).
 
-1. Menerapkan struktur dokumen menggunakan elemen HTML5 semantik.
-2. Menyajikan informasi menggunakan HTML Lists.
-3. Menyajikan data menggunakan tabel HTML semantik.
-4. Membuat formulir interaktif dengan berbagai jenis kontrol input.
-5. Menerapkan prinsip dasar accessibility pada elemen formulir dan navigasi.
-6. Menerapkan CSS eksternal untuk mengatur tampilan halaman.
-7. Menerapkan Flexbox dan CSS Grid dalam pengaturan layout.
-8. Menerapkan responsive design menggunakan Media Queries.
-9. Menerapkan elemen visual seperti warna, typography, border-radius,
-   box-shadow, dan hover effects.
-10. Mengelola dan mempublikasikan project menggunakan Git, GitHub, dan
-    GitHub Pages.
+Refactoring dilakukan dengan mengintegrasikan komponen dan utilitas Bootstrap 5.3.3 bersama stylesheet kustom `style.css` untuk mempertahankan desain personal sesuai spesifikasi penugasan tanpa penggunaan aturan `!important` (*Zero `!important`*).
 
 ---
 
-## Struktur Halaman
+## Sebelum vs Sesudah Integrasi Framework
 
-Website terdiri dari beberapa bagian utama:
+Berikut adalah tabel komparasi detail antara implementasi **Minggu 2 (HTML5 & CSS Manual)** dan **Minggu 3 (Bootstrap 5.3 + Custom Overrides)** sesuai spesifikasi modul:
 
-### 1. Beranda
+| Aspek Komparasi | Minggu 2 (Sebelum / Baseline) | Minggu 3 (Sesudah / Framework Integration) |
+|---|---|---|
+| **Grid / Layout** | Disusun manual menggunakan CSS Grid & Flexbox per section dengan penentuan kolom dan media query secara independen. | Menggunakan **Bootstrap 5.3 Responsive Grid System** (`.container`, `.row`, `.col-*`) dengan gutter standar dan breakpoint fluid (`row-cols-1 row-cols-md-2 row-cols-lg-3`). |
+| **Navbar** | Header sticky manual dengan menu navigasi statis (list horizontal) tanpa mekanisme menu hamburger collapse di layar kecil. | Menggunakan **Bootstrap Navbar** dengan utility `.sticky-top`, background translusen berfilter blur, serta menu hamburger responsif (`.navbar-toggler` & `.collapse`) via Bootstrap bundle. |
+| **Kartu Proyek & Modal** | Kartu proyek CSS manual sederhana yang hanya memuat ringkasan teks statis tanpa jendela popup interaktif untuk rincian studi kasus. | Menggunakan komponen **Bootstrap Cards** (`.card`, `.card-body`, `.h-100`) terstandar dipadukan dengan **4 Bootstrap Modals** (`.modal`, `.modal-dialog-scrollable`) untuk membedah artefak lengkap. |
+| **Formulir** | Formulir HTML/CSS tradisional dengan input box standar, border biasa, dan penataan vertikal sederhana. | Modern **Bootstrap Form Components**: pemanfaatan `.form-floating`, `.input-group` dengan ikon visual Bootstrap Icons, dropdown `.form-select`, serta validasi native HTML5 yang rapi. |
+| **CSS Variables** | Variabel kustom `--primary`, `--accent`, `--font-main` dideklarasikan terpisah tanpa integrasi variabel framework. | Sinergi **CSS Variables Personal** (`--primary`, `--primary-dark`, `--surface`, dll.) dengan CSS custom properties Bootstrap tanpa saling merusak dan **0 penggunaan `!important`**. |
 
-Menampilkan identitas utama mahasiswa, deskripsi singkat, foto profil,
-informasi program studi, semester, NIM, institusi, serta fokus bidang.
-
-### 2. Tentang
-
-Menampilkan informasi mengenai profil dan bidang yang sedang dipelajari.
-
-### 3. Skills
-
-Menampilkan kemampuan yang berkaitan dengan pengembangan web, UI/UX, serta
-analisis dan perancangan sistem.
-
-### 4. Portofolio
-
-Menampilkan beberapa project dan aktivitas yang berkaitan dengan kegiatan
-pembelajaran dan pengembangan kemampuan di bidang Sistem Informasi.
-
-### 5. Riwayat
-
-Menampilkan riwayat beberapa mata kuliah dan fokus pembelajaran dalam bentuk
-tabel HTML semantik.
-
-### 6. Kontak
-
-Menyediakan formulir layanan konsultasi yang dapat digunakan untuk
-menyampaikan kebutuhan konsultasi.
+### Dampak & Manfaat Refactoring:
+1. **Efisiensi & Ketahanan Layout**: Pemanfaatan sistem 12-kolom Bootstrap menyederhanakan pengelolaan breakpoint multi-perangkat sekaligus mencegah *horizontal overflow* pada layar mobile.
+2. **Modularitas Komponen**: Komponen Cards dan Modals memisahkan ringkasan ringkas di beranda dengan dokumentasi studi kasus mendalam pada dialog interaktif.
+3. **Pengalaman Pengguna (UX) Formulir**: Floating labels dan input groups meningkatkan keterbacaan serta memberikan ruang interaksi yang ramah bagi pengguna mobile.
 
 ---
 
-## Implementasi HTML5
+## Daftar Fitur Utama Minggu 3
 
-Website menggunakan elemen HTML5 semantik untuk membangun struktur halaman,
-antara lain:
+Sesuai dengan capaian pembelajaran pada modul Bagian V dan VI:
 
-- `<header>`
-- `<nav>`
-- `<main>`
-- `<section>`
-- `<article>`
-- `<aside>`
-- `<footer>`
-
-Penggunaan elemen tersebut digunakan untuk membedakan struktur dan fungsi
-masing-masing bagian halaman.
-
-Website juga menggunakan HTML Lists dan tabel untuk menyajikan informasi.
-Tabel riwayat menggunakan:
-
-- `<caption>`
-- `<thead>`
-- `<tbody>`
-- `<tfoot>`
-- `<th>`
-- `<td>`
-- `scope="col"`
-- `scope="row"`
+1. **Integrasi Bootstrap 5.3 CDN**: Framework CSS dan JavaScript bundle terintegrasi via CDN resmi JsDelivr (`bootstrap.min.css` dan `bootstrap.bundle.min.js`).
+2. **Bootstrap Icons 1.11.3**: Library ikon resmi terpasang untuk navigasi, tombol, badges, dan input group addons.
+3. **Responsive Sticky Navbar Collapse**: Navigasi sticky di posisi teratas (`.sticky-top`) dengan menu hamburger responsif pada viewport `< 992px` menggunakan data attributes Bootstrap.
+4. **4 Responsive Project Cards dengan Modal Dialog**:
+   - Menampilkan 4 studi kasus nyata yang tertata rapi dalam Bootstrap Grid.
+   - Dilengkapi 4 jendela Bootstrap Modal interaktif untuk eksplorasi artefak lengkap per proyek.
+5. **Modern Consultation Form**:
+   - Pemanfaatan `.form-floating` pada field Nama, Email, Telepon, Subjek, dan Pesan.
+   - Pemanfaatan `.input-group` yang dipadukan dengan Bootstrap Icons (`bi-person`, `bi-envelope`, `bi-telephone`, `bi-chat-left-text`).
+   - Komponen dropdown `.form-select` untuk kategori layanan.
+   - Kontrol radio dan checkbox (`.form-check`) untuk paket konsultasi dan persetujuan syarat ketentuan.
+   - Validasi murni berbasis atribut native HTML5 (`required`, `type`, `pattern`, `minlength`, `maxlength`).
+6. **Zero `!important` (0 Penggunaan `!important`)**: Seluruh stylesheet kustom `style.css` bersih dari deklarasi `!important`, mengandalkan spesifisitas selector yang rapi dan CSS Custom Properties.
+7. **Elemen Semantik HTML5 Utuh**: Penggunaan elemen `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, `<footer>`, `<form>`, `<fieldset>`, `<legend>`, dan `<table>`.
 
 ---
 
-## Implementasi Formulir dan Accessibility
+## Dokumentasi Portfolio Projects
 
-Formulir konsultasi menggunakan `<form>`, `<fieldset>`, dan `<legend>` untuk
-mengelompokkan informasi yang berkaitan.
+Website mendokumentasikan 4 proyek nyata mahasiswa yang merepresentasikan kompetensi akademik dan teknis:
 
-Jenis kontrol input yang digunakan meliputi:
+### Project 01: Perancangan Aplikasi Jadwal Imunisasi Anak Indonesia
+- **Kategori**: UI/UX DESIGN & MOBILE PROTOTYPE
+- **Deskripsi**: Perancangan prototipe UI/UX menggunakan Figma untuk memodelkan solusi aplikasi seluler jadwal imunisasi balita. Antarmuka memodelkan alur pemantauan jadwal imunisasi, pencatatan riwayat vaksin, pengingat jadwal, dan pemetaan fasilitas kesehatan.
+- **Teknologi & Tools**: UI/UX Research, Figma, Mobile Wireframing, Usability Testing, Interactive Prototype.
+- **Artefak Unggulan**: User Persona, Alur Pengguna (User Flow), Wireframe & Prototipe Interaktif Figma, serta UI Style Guide Komprehensif.
 
-- Text
-- Email
-- Telephone
-- Number
-- Radio
-- Checkbox
-- Select
-- Textarea
+### Project 02: Business Plan CENDERAMATAK
+- **Kategori**: BUSINESS PLANNING & DIGITAL VENTURE
+- **Deskripsi**: Perencanaan bisnis strategis untuk produk suvenir kacamata terpersonalisasi khas kawasan Danau Toba yang memadukan identitas ornamen budaya Batak, material ramah lingkungan, dan analisis rantai pasok lokal.
+- **Teknologi & Tools**: Business Model Canvas, Financial Projection, Market Analysis, Product Roadmap, Strategic Marketing.
+- **Artefak Unggulan**: Logo Usaha Resmi, Business Model Canvas (BMC), Desain Varian Produk, Strategi Pemasaran Digital, dan Proyeksi Finansial.
 
-Formulir juga menerapkan validasi native HTML5 seperti:
+### Project 03: Sistem Informasi Pengelolaan Keuangan & Monitoring SPP
+- **Kategori**: SYSTEM ANALYSIS & SOFTWARE REQUIREMENTS
+- **Deskripsi**: Analisis dan pemodelan kebutuhan perangkat lunak melalui dokumen SyRS IEEE 830 (Spesifikasi Kebutuhan Perangkat Lunak) untuk sistem keuangan institusi pendidikan. Proyek ini merupakan tugas rekayasa kebutuhan perangkat lunak (tanpa implementasi source code aplikasi berjalan atau integrasi payment gateway live) yang memodelkan tata kelola pencatatan pembayaran SPP dan pemantauan tunggakan.
+- **Teknologi & Tools**: System Analysis, SyRS IEEE 830, BPMN 2.0, Data Flow Diagram (DFD), ERD Modeling, Use Case Specification.
+- **Artefak Unggulan**: Diagram Alir Proses Bisnis BPMN, Diagram Dekomposisi DFD Bertingkat, Entity Relationship Diagram (ERD), dan Matriks Spesifikasi Use Case.
 
-- `required`
-- `min`
-- `max`
-- `minlength`
-
-Setiap input memiliki label yang terhubung secara eksplisit menggunakan
-atribut `for` dan `id`.
-
-Aspek accessibility lainnya diterapkan melalui penggunaan atribut seperti
-`alt`, `aria-label`, dan `aria-describedby`, serta focus state pada elemen
-interaktif.
+### Project 04: Pengembangan Personal Portfolio Website Responsif
+- **Kategori**: FRONTEND WEB DEVELOPMENT
+- **Deskripsi**: Pengembangan dan refactoring website portfolio personal yang responsif dan aksesibel melalui standarisasi semantik HTML5, arsitektur CSS kustom bertema personal, dan integrasi komponen Bootstrap 5.3.3.
+- **Teknologi & Tools**: HTML5 Semantics, Modern CSS3, Bootstrap 5.3.3, Bootstrap Icons 1.11.3, Mobile-First Media Queries, W3C Accessibility Standards, Git.
+- **Artefak Unggulan**: Pratinjau Desktop Hero & Navigation, Showcase Section Skills, Formulir Konsultasi Interaktif, dan Pratinjau Mobile Viewport (390×844).
 
 ---
 
-## Implementasi CSS
+## Pratinjau Visual (Screenshots)
 
-Tampilan website menggunakan CSS eksternal melalui file `style.css`.
+Berikut adalah tangkapan layar representatif antarmuka website Week 3:
 
-Beberapa konsep CSS yang diterapkan meliputi:
+### 1. Homepage & Hero Section
+![Homepage & Hero Section](assets/projects/project-04/cover.png)
 
-- Universal box-sizing reset
-- CSS Variables
-- Flexbox
-- CSS Grid
-- Media Queries
-- Responsive Layout
-- Typography
-- Border Radius
-- Box Shadow
-- Hover Effects
-- Focus States
-- Reduced Motion
+### 2. Skills & Capability Showcase
+![Skills & Capability Showcase](assets/projects/project-04/skills-preview.png)
 
-Website menggunakan beberapa breakpoint untuk menyesuaikan tampilan pada
-desktop, tablet, dan perangkat dengan ukuran layar yang lebih kecil.
+### 3. Showcase Portofolio & Case Studies
+![Project 01 Cover](assets/projects/project-01/cover.png)
+*Cover Project 01 — Perancangan Aplikasi Jadwal Imunisasi Anak Indonesia*
+
+![Project 02 Cover](assets/projects/project-02/cover.png)
+*Cover Project 02 — Business Plan CENDERAMATAK*
+
+![Project 03 Cover](assets/projects/project-03/cover.png)
+*Cover Project 03 — Sistem Informasi Pengelolaan Keuangan & Monitoring SPP*
+
+### 4. Formulir Konsultasi Modern
+![Formulir Kontak Modern](assets/projects/project-04/form-preview.png)
+
+### 5. Tampilan Responsif (Mobile Viewport)
+![Pratinjau Mobile Viewport](assets/projects/project-04/mobile-preview.png)
 
 ---
 
-## Struktur Folder
+## Struktur Folder Project
 
 ```text
-portfolio-nikah-suchia/
-│
-├── index.html
-├── style.css
-├── README.md
-│
+ppw-2026-week2-12S24041/
+├── index.html                                          # Dokumen utama website (Bootstrap 5.3 + Semantik HTML5)
+├── style.css                                           # Stylesheet kustom personal & design system (Zero !important)
+├── README.md                                           # Dokumentasi resmi proyek (Week 3)
+├── logo usaha tekno.png                                # Aset logo usaha CenderaMatak
+├── 12_SyRS_Fiznal.pdf                                  # Dokumen SyRS asli (Project 03)
+├── 14_UIUX_09_Nicolas.pptx                             # Dokumen materi UI/UX asli (Project 01)
+├── W09S01_Business_Plan_01_CenderaMatak (9).docx       # Dokumen Business Plan asli (Project 02)
 └── assets/
-    └── foto-profil.jpg
+    ├── foto-profil.jpg                                 # Foto profil mahasiswa
+    └── projects/
+        ├── project-01/                                 # Aset artefak Project 01 (Imunisasi Anak)
+        │   ├── cover.png
+        │   ├── flow.png
+        │   ├── persona.png
+        │   ├── prototype.png
+        │   ├── research.png
+        │   ├── ui-style-guide.png
+        │   └── 14_UIUX_09_Nicolas.pptx
+        ├── project-02/                                 # Aset artefak Project 02 (CenderaMatak)
+        │   ├── cover.png
+        │   ├── logo-usaha-tekno.png
+        │   ├── business-model.png
+        │   ├── product.png
+        │   ├── strategy.png
+        │   ├── financial.png
+        │   ├── market.png
+        │   └── Business_Plan_CenderaMatak.pdf
+        ├── project-03/                                 # Aset artefak Project 03 (Sistem SPP)
+        │   ├── cover.png
+        │   ├── title-cover.png
+        │   ├── bpmn.png
+        │   ├── dfd.png
+        │   ├── erd.png
+        │   ├── usecase.png
+        │   ├── pembayaran.png
+        │   ├── monitoring.png
+        │   └── 12_SyRS_Fiznal.pdf
+        └── project-04/                                 # Aset tangkapan layar Website Portfolio
+            ├── cover.png                               # Preview Hero & Navigasi Desktop
+            ├── skills-preview.png                      # Preview Skills Showcase
+            ├── form-preview.png                        # Preview Formulir Kontak Interaktif
+            └── mobile-preview.png                      # Preview Tampilan Mobile Viewport
+```
+
+---
+
+## Cara Menjalankan Project Secara Lokal
+
+1. Buka folder proyek ini di **Visual Studio Code**.
+2. Pastikan ekstensi **Live Server** terpasang.
+3. Buka file `index.html`.
+4. Klik kanan dan pilih **"Open with Live Server"** (atau buka langsung `index.html` via browser).
+5. Akses halaman melalui URL lokal `http://127.0.0.1:5500/index.html`.
+
+---
+
+## Tautan Deployment & Repositori
+
+- **URL Repositori GitHub**: [https://github.com/NikahPanjaitan/ppw-2026-week2-12S24041](https://github.com/NikahPanjaitan/ppw-2026-week2-12S24041)
+- **Tautan Deployment (GitHub Pages)**: [https://nikahpanjaitan.github.io/ppw-2026-week2-12S24041/](https://nikahpanjaitan.github.io/ppw-2026-week2-12S24041/)
+  - *Catatan Status Deployment*: Tautan GitHub Pages di atas saat ini aktif menyajikan baseline Minggu 2 (branch `main`). Implementasi Minggu 3 berada di branch `week3-bootstrap` dan akan otomatis aktif pada tautan publik tersebut setelah proses merge ke branch utama selesai dilakukan.

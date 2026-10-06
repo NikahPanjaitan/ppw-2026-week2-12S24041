@@ -37,7 +37,7 @@
 
     <!-- ================= HEADER / NAVBAR ================= -->
     <!-- [TAHAP 2] Navbar Bootstrap dengan hamburger (collapse) di bawah 992px -->
-    <header class="site-header">
+    <header class="site-header sticky-top">
         <nav class="navbar navbar-expand-lg" aria-label="Navigasi utama">
             <div class="container nav-container">
 
@@ -991,7 +991,7 @@
 
 
                     <!-- PROYEK 4: CASE STUDY PERSONAL PORTFOLIO WEBSITE -->
-                    <div class="col col-lg-4 offset-lg-4">
+                    <div class="col">
                         <article class="card h-100 project-card documented-project-card">
 
                             <!-- Visual Cover Image Preview: Real Portfolio Screenshot -->
@@ -2732,7 +2732,7 @@
                     <!-- Kolom Kiri (col-lg-5): Info Kontak, Ringkasan, Availability -->
                     <div class="col-lg-5">
 
-                        <div class="contact-aside pe-lg-3">
+                        <aside class="contact-aside pe-lg-3">
 
                             <div class="section-heading mb-4">
                                 <span class="section-label">FORMULIR LAYANAN</span>
@@ -2793,11 +2793,11 @@
                                     <h4 class="h6 fw-bold text-dark mb-0">Catatan Simulasi</h4>
                                 </div>
                                 <p class="text-muted small mb-0">
-                                    Formulir ini dilengkapi validasi client-side interaktif (HTML5 + Bootstrap 5). Pastikan nomor telepon 10–13 digit dan deskripsi minimal 20 karakter.
+                                    Formulir ini dilengkapi validasi standar HTML5. Pastikan nomor telepon 10–13 digit dan deskripsi minimal 20 karakter.
                                 </p>
                             </div>
 
-                        </div>
+                        </aside>
 
                     </div>
 
@@ -2807,7 +2807,7 @@
 
                         <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white form-card-container">
 
-                            <form action="#" method="post" class="contact-form needs-validation" novalidate>
+                            <form action="#" method="post" class="contact-form">
 
                                 <!-- Alert Notifikasi Berhasil (Simulasi Client-Side) -->
                                 <div id="formSuccessAlert" class="alert alert-success alert-dismissible fade show d-none mb-4" role="alert">
@@ -3164,59 +3164,8 @@
     </footer>
 
 
-    <!-- [TAHAP 1] Bootstrap 5.3.3 JS Bundle -->
+    <!-- Bootstrap 5.3.3 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- [TAHAP 2] Menu hamburger otomatis menutup & Validasi Formulir Bootstrap 5 -->
-    <script>
-        (() => {
-            'use strict';
-
-            const menu = document.getElementById('mainNavbar');
-
-            if (menu) {
-                menu.querySelectorAll('.nav-link').forEach((link) => {
-                    link.addEventListener('click', () => {
-                        if (menu.classList.contains('show')) {
-                            bootstrap.Collapse.getOrCreateInstance(menu).hide();
-                        }
-                    });
-                });
-            }
-
-            // Bootstrap 5 client-side form validation
-            const forms = document.querySelectorAll('.needs-validation');
-            Array.from(forms).forEach((form) => {
-                form.addEventListener('submit', (event) => {
-                    event.preventDefault();
-
-                    if (!form.checkValidity()) {
-                        event.stopPropagation();
-                        const alertSuccess = document.getElementById('formSuccessAlert');
-                        if (alertSuccess) {
-                            alertSuccess.classList.add('d-none');
-                        }
-                    } else {
-                        const alertSuccess = document.getElementById('formSuccessAlert');
-                        if (alertSuccess) {
-                            alertSuccess.classList.remove('d-none');
-                            alertSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }
-                    }
-
-                    form.classList.add('was-validated');
-                }, false);
-
-                form.addEventListener('reset', () => {
-                    form.classList.remove('was-validated');
-                    const alertSuccess = document.getElementById('formSuccessAlert');
-                    if (alertSuccess) {
-                        alertSuccess.classList.add('d-none');
-                    }
-                });
-            });
-        })();
-    </script>
 
 </body>
 </html>
