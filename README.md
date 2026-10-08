@@ -87,21 +87,21 @@ Sesuai dengan spesifikasi Bagian V (5.2) dan rubrik analitik pada dokumen modul 
 3. **Project 03 — Sistem Informasi Pengelolaan Keuangan & Monitoring SPP**
    - *Kategori*: System Analysis & Software Requirements (SyRS IEEE 830)
    - *Fokus Engineering*: Rekayasa kebutuhan perangkat lunak, pemodelan proses bisnis BPMN 2.0, Data Flow Diagram (DFD) bertingkat, skema basis data ERD, dan spesifikasi use case.
-4. **Project 04 — Pengembangan Personal Portfolio Website Responsif**
-   - *Kategori*: Frontend Web Development
-   - *Fokus Engineering*: Refactoring website personal portofolio multi-perangkat berbasis HTML5 semantik, arsitektur Bootstrap 5.3.3 Grid & Cards, dan custom CSS theming.
+4. **Project 04 — Tugas Besar Manajemen Proses Bisnis (Analisis & Redesign Proses IK dan IB)**
+   - *Kategori*: Business Process Management & Process Redesign
+   - *Fokus Engineering*: Analisis dan perancangan ulang proses bisnis Izin Keluar (IK) dan Izin Bermalam (IB) di lingkungan kampus berbasis dokumen naskah Tugas Besar resmi (95 halaman). Meliputi pemetaan proses As-Is (BPMN 2.0 via Bizagi Modeler), qualitative analysis (Value-Added Analysis, 5-Whys, Root Cause Fishbone 6M, Pareto 80/20, Issue Register), quantitative analysis (Cycle Time Flow Analysis, Queuing Theory M/M/c, Simulation CTE), serta perancangan ulang heuristik (H1 Task Elimination & H9 Automation) yang menghasilkan To-Be Process Model.
 
 ---
 
 ## Pratinjau Visual Antarmuka
 
-| Komponen Antarmuka | Pratinjau Visual |
+| Komponen / Artefak Portofolio | Pratinjau Visual |
 |---|---|
-| **Hero Section & Sticky Navbar** | ![Hero Section](assets/projects/project-04/cover.png) |
+| **Project 01 (UI/UX Imunisasi Anak)** | ![Project 01](assets/projects/project-01/cover.png) |
+| **Project 02 (Business Plan Cenderamatak)** | ![Project 02](assets/projects/project-02/cover.png) |
+| **Project 03 (SyRS Sistem Monitoring SPP)** | ![Project 03](assets/projects/project-03/cover.png) |
+| **Project 04 (BPM Case Study IK & IB)** | ![Project 04](assets/projects/project-04/cover.png) |
 | **Capability & Skills Showcase** | ![Skills Showcase](assets/projects/project-04/skills-preview.png) |
-| **Project 01 (UI/UX Imunisasi)** | ![Project 01](assets/projects/project-01/cover.png) |
-| **Project 02 (Cenderamatak)** | ![Project 02](assets/projects/project-02/cover.png) |
-| **Project 03 (SyRS Sistem SPP)** | ![Project 03](assets/projects/project-03/cover.png) |
 | **Formulir Kontak Modern** | ![Formulir Kontak](assets/projects/project-04/form-preview.png) |
 | **Responsivitas Mobile (390×844)** | ![Mobile Viewport](assets/projects/project-04/mobile-preview.png) |
 
@@ -148,11 +148,16 @@ ppw-2026-week2-12S24041/
         │   ├── pembayaran.png
         │   ├── monitoring.png
         │   └── 12_SyRS_Fiznal.pdf
-        └── project-04/                     # Aset Project 04 (Website Portfolio)
-            ├── cover.png
-            ├── skills-preview.png
-            ├── form-preview.png
-            └── mobile-preview.png
+        └── project-04/                     # Aset Project 04 (BPM Case Study IK & IB)
+            ├── cover.png                   # Cover visual identity BPM lifecycle
+            ├── asis-bpmn-ik.png            # Pemodelan proses As-Is BPMN 2.0 IK
+            ├── fishbone-ik.png             # Diagram Ishikawa 6M root-cause IK
+            ├── pareto-ik.png               # Grafik Pareto 80/20 kendala proses IK
+            ├── tobe-bpmn-ik.png            # Pemodelan proses To-Be BPMN 2.0 IK
+            ├── TB_Manajemen_Proses_Bisnis_01.docx # Naskah lengkap dokumen tugas besar (8 MB)
+            ├── skills-preview.png          # Dokumentasi preview antarmuka skills
+            ├── form-preview.png            # Dokumentasi preview formulir kontak
+            └── mobile-preview.png          # Dokumentasi preview responsivitas mobile
 ```
 
 ---
