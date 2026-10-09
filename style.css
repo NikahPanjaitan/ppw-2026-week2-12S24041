@@ -157,10 +157,15 @@ ol {
    3. ACCESSIBILITY
    ========================================================= */
 
-/* [TAHAP 2] Outline fokus keyboard: warna biru Week 2 diganti mauve gelap */
+/* [TAHAP 2] Outline fokus keyboard & selektor lanjutan :is() */
 :focus-visible {
     outline: 3px solid var(--mauve-dark);
     outline-offset: 3px;
+}
+
+:is(button, .btn, input, select, textarea):focus-visible {
+    outline: 3px solid var(--mauve-dark);
+    outline-offset: 2px;
 }
 
 ::selection {
@@ -2213,6 +2218,13 @@ legend {
     margin-top: 4px;
 }
 
+/* State validasi visual native HTML5 (:user-invalid / :user-valid) & Bootstrap .was-validated */
+.form-control:user-valid ~ .valid-feedback,
+.form-control:user-valid ~ * ~ .valid-feedback,
+.form-select:user-valid ~ .valid-feedback,
+.form-select:user-valid ~ * ~ .valid-feedback,
+.form-check-input:user-valid ~ .valid-feedback,
+.form-check-input:user-valid ~ * ~ .valid-feedback,
 .was-validated .form-control:valid ~ .valid-feedback,
 .was-validated .form-control:valid ~ * ~ .valid-feedback,
 .was-validated .form-select:valid ~ .valid-feedback,
@@ -2222,6 +2234,12 @@ legend {
     display: block;
 }
 
+.form-control:user-invalid ~ .invalid-feedback,
+.form-control:user-invalid ~ * ~ .invalid-feedback,
+.form-select:user-invalid ~ .invalid-feedback,
+.form-select:user-invalid ~ * ~ .invalid-feedback,
+.form-check-input:user-invalid ~ .invalid-feedback,
+.form-check-input:user-invalid ~ * ~ .invalid-feedback,
 .was-validated .form-control:invalid ~ .invalid-feedback,
 .was-validated .form-control:invalid ~ * ~ .invalid-feedback,
 .was-validated .form-select:invalid ~ .invalid-feedback,
@@ -2231,6 +2249,8 @@ legend {
     display: block;
 }
 
+.input-group:has(.form-control:user-invalid) .input-group-text,
+.input-group:has(.form-select:user-invalid) .input-group-text,
 .was-validated .input-group:has(.form-control:invalid) .input-group-text,
 .was-validated .input-group:has(.form-select:invalid) .input-group-text {
     border-color: #dc3545;
@@ -2238,6 +2258,8 @@ legend {
     background-color: #fff5f5;
 }
 
+.input-group:has(.form-control:user-valid) .input-group-text,
+.input-group:has(.form-select:user-valid) .input-group-text,
 .was-validated .input-group:has(.form-control:valid) .input-group-text,
 .was-validated .input-group:has(.form-select:valid) .input-group-text {
     border-color: #198754;
