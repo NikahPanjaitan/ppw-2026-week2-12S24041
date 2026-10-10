@@ -61,6 +61,42 @@ class PortfolioApp {
     }
 
     /**
+     * Sanitasi dan validasi URI untuk mencegah serangan DOM XSS berbasis skema berbahaya
+     * (misalnya: javascript:, data:, vbscript:, atau bypass protocol-relative).
+     * Hanya mengizinkan path relatif internal terpercaya (assets/...) atau tautan HTTPS aman.
+     * @param {string} url 
+     * @returns {string} URL yang aman atau '#' jika tidak lolos validasi
+     */
+    sanitizeURL(url) {
+        if (!url || typeof url !== 'string') return '#';
+        const trimmed = url.trim();
+
+        // Tolak secara eksplisit protokol berbahaya
+        if (/^(javascript|data|vbscript):/i.test(trimmed)) {
+            console.warn(`[PortfolioApp Security] Blocked dangerous URI scheme: ${trimmed}`);
+            return '#';
+        }
+
+        // Izinkan URL HTTPS valid
+        if (/^https:\/\/[a-zA-Z0-9_\-\./%+?&=#~:@]+$/i.test(trimmed)) {
+            return this.escapeHTML(trimmed);
+        }
+
+        // Izinkan path lokal relatif terpercaya (misal: assets/... atau ./assets/...)
+        if (/^(\.{0,2}\/)?assets\/[a-zA-Z0-9_\-\./%+]+$/i.test(trimmed)) {
+            return this.escapeHTML(trimmed);
+        }
+
+        // Izinkan safe local anchor
+        if (/^#[a-zA-Z0-9_\-]+$/i.test(trimmed)) {
+            return this.escapeHTML(trimmed);
+        }
+
+        console.warn(`[PortfolioApp Security] Blocked potentially unsafe URL: ${trimmed}`);
+        return '#';
+    }
+
+    /**
      * Mengambil data terstruktur dari decoupled JSON data providers
      */
     async loadInitialData() {
@@ -153,11 +189,11 @@ class PortfolioApp {
 
         container.innerHTML = projects.map((proj, index) => {
             const projectNumber = String(index + 1).padStart(2, '0');
-            const safeTitle = this.escapeHTML(proj.title);
-            const safeCategory = this.escapeHTML(proj.category);
-            const safeSubtitle = this.escapeHTML(proj.subtitle);
-            const safeShortDesc = this.escapeHTML(proj.shortDescription);
-            const safeThumbnail = this.escapeHTML(proj.thumbnail);
+            const safeTitle = this.escapeHTML(proj.title || 'Proyek Tanpa Judul');
+            const safeCategory = this.escapeHTML(proj.category || 'Akademik');
+            const safeSubtitle = this.escapeHTML(proj.subtitle || '');
+            const safeShortDesc = this.escapeHTML(proj.shortDescription || '');
+            const safeThumbnail = this.sanitizeURL(proj.thumbnail);
             const safeBadgeType = this.escapeHTML(proj.badgeType || 'Dokumentasi');
             const safeBadgeIcon = this.escapeHTML(proj.badgeIcon || 'bi-patch-check-fill');
 
@@ -165,9 +201,9 @@ class PortfolioApp {
                 `<span class="badge">${this.escapeHTML(t)}</span>`
             ).join(' ');
 
-            const downloadButtonHTML = proj.downloadLink ? `
+            const downloadButtonHTML = (proj.downloadLink && proj.downloadLink.url) ? `
                 <a
-                    href="${this.escapeHTML(proj.downloadLink.url)}"
+                    href="${this.sanitizeURL(proj.downloadLink.url)}"
                     class="btn btn-outline-secondary btn-sm"
                     download
                     title="Unduh berkas lampiran ${safeTitle}"
@@ -375,27 +411,27 @@ class PortfolioApp {
         if (!modalEl || !modalTitle || !modalBody) return;
 
         // Set judul modal
-        modalTitle.textContent = project.title;
+        modalTitle.textContent = project.title || 'Detail Proyek';
 
-        // Render metrik badges
+        // Render metrik badges dengan defensive fallback
         const metricsHTML = (project.metrics || []).map(m => `
             <div class="col-6 col-md-3">
                 <div class="p-3 bg-light border rounded-3 text-center h-100">
-                    <span class="d-block text-muted smaller text-uppercase fw-bold">${this.escapeHTML(m.label)}</span>
-                    <strong class="fs-4 text-primary d-block my-1">${this.escapeHTML(m.value)}</strong>
-                    <span class="badge bg-secondary-subtle text-secondary smaller">${this.escapeHTML(m.context)}</span>
+                    <span class="d-block text-muted smaller text-uppercase fw-bold">${this.escapeHTML(m.label || '-')}</span>
+                    <strong class="fs-4 text-primary d-block my-1">${this.escapeHTML(m.value || '-')}</strong>
+                    <span class="badge bg-secondary-subtle text-secondary smaller">${this.escapeHTML(m.context || '')}</span>
                 </div>
             </div>
         `).join('');
 
-        // Render galeri artefak
+        // Render galeri artefak dengan URL sanitization ketat
         const artifactsHTML = (project.artifacts || []).map(art => `
             <div class="col-12 col-md-6">
                 <div class="card h-100 border shadow-sm rounded-3 overflow-hidden">
-                    <img src="${this.escapeHTML(art.image)}" alt="${this.escapeHTML(art.title)}" class="card-img-top" loading="lazy">
+                    <img src="${this.sanitizeURL(art.image)}" alt="${this.escapeHTML(art.title || '')}" class="card-img-top" loading="lazy">
                     <div class="card-body p-3">
-                        <h6 class="fw-bold mb-1">${this.escapeHTML(art.title)}</h6>
-                        <p class="small text-muted mb-0">${this.escapeHTML(art.caption)}</p>
+                        <h6 class="fw-bold mb-1">${this.escapeHTML(art.title || '')}</h6>
+                        <p class="small text-muted mb-0">${this.escapeHTML(art.caption || '')}</p>
                     </div>
                 </div>
             </div>
@@ -406,11 +442,11 @@ class PortfolioApp {
             <span class="badge bg-primary-subtle text-primary border border-primary-subtle">${this.escapeHTML(t)}</span>
         `).join(' ');
 
-        // Render tombol unduh
-        const downloadActionHTML = project.downloadLink ? `
-            <a href="${this.escapeHTML(project.downloadLink.url)}" class="btn btn-primary" download>
+        // Render tombol unduh dengan sanitasi tautan
+        const downloadActionHTML = (project.downloadLink && project.downloadLink.url) ? `
+            <a href="${this.sanitizeURL(project.downloadLink.url)}" class="btn btn-primary" download>
                 <i class="bi ${this.escapeHTML(project.downloadLink.icon || 'bi-download')} me-1" aria-hidden="true"></i>
-                ${this.escapeHTML(project.downloadLink.label)}
+                ${this.escapeHTML(project.downloadLink.label || 'Unduh Berkas Lampiran')}
             </a>
         ` : '';
 
@@ -418,13 +454,13 @@ class PortfolioApp {
         modalBody.innerHTML = `
             <!-- Header Cover Preview -->
             <div class="mb-4 rounded-3 overflow-hidden border">
-                <img src="${this.escapeHTML(project.thumbnail)}" alt="${this.escapeHTML(project.title)}" class="img-fluid w-100" style="max-height: 380px; object-fit: cover;">
+                <img src="${this.sanitizeURL(project.thumbnail)}" alt="${this.escapeHTML(project.title || '')}" class="img-fluid w-100" style="max-height: 380px; object-fit: cover;">
             </div>
 
             <!-- Meta & Subtitle -->
             <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
-                <span class="badge bg-primary px-3 py-2 fs-6">${this.escapeHTML(project.category)}</span>
-                <span class="text-muted fw-semibold small">${this.escapeHTML(project.subtitle)}</span>
+                <span class="badge bg-primary px-3 py-2 fs-6">${this.escapeHTML(project.category || 'Akademik')}</span>
+                <span class="text-muted fw-semibold small">${this.escapeHTML(project.subtitle || '')}</span>
             </div>
 
             <!-- Ringkasan Angka Metrik -->
@@ -438,7 +474,7 @@ class PortfolioApp {
                     <i class="bi bi-file-text me-1 text-primary"></i> Deskripsi & Analisis Lengkap
                 </h6>
                 <p class="text-secondary" style="line-height: 1.8;">
-                    ${this.escapeHTML(project.fullDescription)}
+                    ${this.escapeHTML(project.fullDescription || '')}
                 </p>
             </div>
 
@@ -513,7 +549,7 @@ class PortfolioApp {
             const payload = Object.fromEntries(formData.entries());
 
             try {
-                // Kirim via Data Access Layer ApiService (simulasi HTTP POST 800ms)
+                // Kirim via Data Access Layer ApiService (RESTful HTTP POST riil ke endpoint publik)
                 const response = await ApiService.submitServiceOrder(payload);
 
                 // Simpan ke localStorage secara persisten

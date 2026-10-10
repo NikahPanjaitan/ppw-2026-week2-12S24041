@@ -80,50 +80,64 @@ class ApiService {
     }
 
     /**
-     * Mensimulasikan pengiriman data pemesanan layanan via HTTP POST asinkron
-     * dengan latensi jaringan tiruan (800ms) dan pengembalian DTO JSON terstruktur.
+     * Mengirimkan data pemesanan layanan via HTTP POST asinkron (RESTful API riil)
+     * ke endpoint publik (jsonplaceholder) dengan header terstandarisasi,
+     * penanganan status HTTP defensif, dan pencatatan transaksi di Network DevTools.
      * @param {object} payload Data pemesanan formulir
-     * @returns {Promise<object>}
+     * @returns {Promise<object>} DTO JSON terstruktur hasil respons server
      */
     static async submitServiceOrder(payload) {
-        return new Promise((resolve, reject) => {
-            // Simulasi latensi jaringan HTTP RESTful sebesar 800ms
-            setTimeout(() => {
-                try {
-                    // Validasi defensif masukan di sisi service logic tier
-                    if (!payload || typeof payload !== 'object') {
-                        throw new Error('Payload pemesanan tidak valid.');
-                    }
+        // Validasi defensif masukan di sisi service logic tier
+        if (!payload || typeof payload !== 'object') {
+            throw new Error('Payload pemesanan tidak valid.');
+        }
 
-                    if (!payload.nama || !payload.email || !payload.layanan) {
-                        throw new Error('Kolom Nama, Email, dan Layanan wajib diisi.');
-                    }
+        if (!payload.nama || !payload.email || !payload.layanan) {
+            throw new Error('Kolom Nama, Email, dan Layanan wajib diisi.');
+        }
 
-                    const responseDTO = {
-                        success: true,
-                        statusCode: 201,
-                        message: 'Permintaan layanan konsultasi akademik berhasil diproses dan dicatat oleh API.',
-                        orderId: `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-                        receivedAt: new Date().toISOString(),
-                        data: {
-                            nama: String(payload.nama).trim(),
-                            email: String(payload.email).trim(),
-                            telepon: payload.telepon ? String(payload.telepon).trim() : '-',
-                            layanan: payload.layanan,
-                            sesi: Number(payload.sesi) || 1,
-                            metode: payload.metode || 'Daring (Online)',
-                            deskripsi: payload.deskripsi ? String(payload.deskripsi).trim() : '',
-                            persetujuan: Boolean(payload.persetujuan)
-                        }
-                    };
+        const requestPayload = {
+            nama: String(payload.nama).trim(),
+            email: String(payload.email).trim(),
+            telepon: payload.telepon ? String(payload.telepon).trim() : '-',
+            layanan: payload.layanan,
+            sesi: Number(payload.sesi) || 1,
+            metode: payload.metode || 'Daring (Online)',
+            deskripsi: payload.deskripsi ? String(payload.deskripsi).trim() : '',
+            persetujuan: Boolean(payload.persetujuan),
+            submittedAt: new Date().toISOString()
+        };
 
-                    resolve(responseDTO);
-                } catch (err) {
-                    console.error('[ApiService Submit Error]:', err);
-                    reject(err);
-                }
-            }, 800);
-        });
+        try {
+            // Eksekusi HTTP POST riil ke public REST endpoint
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(requestPayload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP Error ${response.status}: Gagal mengirim data pemesanan (${response.statusText})`);
+            }
+
+            const responseJson = await response.json();
+
+            // Kembalikan DTO terstruktur untuk presentation layer dan persistensi client-side
+            return {
+                success: true,
+                statusCode: response.status, // 201 Created
+                message: 'Permintaan layanan konsultasi akademik berhasil diproses dan dicatat oleh REST API.',
+                orderId: `ORD-${Date.now()}-${responseJson.id || Math.floor(Math.random() * 1000)}`,
+                receivedAt: new Date().toISOString(),
+                data: requestPayload
+            };
+        } catch (error) {
+            console.error('[ApiService POST Error] Kegagalan saat memproses HTTP POST:', error);
+            throw error;
+        }
     }
 }
 
