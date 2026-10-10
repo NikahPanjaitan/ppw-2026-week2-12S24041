@@ -34,42 +34,55 @@ Pada Minggu 3, antarmuka portofolio dibangun menggunakan Bootstrap 5.3, namun se
 
 ---
 
-## Pemodelan Arsitektur Sistem: C4 Container Model
+## Pemodelan Arsitektur Sistem: Decoupled Multi-Tier Flowchart
 
-Diagram Container C4 berikut memetakan batas tanggung jawab (*Separation of Concerns*) antara peramban klien, penyedia aset statis, penyedia data JSON mandiri, simulasi REST API, dan lapisan persistensi lokal:
+Diagram alur berikut memetakan batas tanggung jawab (*Separation of Concerns*) antara peramban klien (*Client Tier*), penyedia aset statis (*Edge CDN & Static Tier*), penyedia data JSON mandiri (*Data Tier*), layanan API eksternal (*External API Tier*), dan penyimpanan lokal peramban (*Client Storage*):
 
 ```mermaid
-C4Container
-    title C4 Container Model: Decoupled CSR Multi-Tier Architecture (Week 4)
+flowchart TD
+    User(["Pengunjung / Mahasiswa"])
 
-    Person(user, "Pengunjung / Mahasiswa", "Pengguna yang mengakses portofolio web melalui browser desktop atau mobile.")
+    subgraph ClientTier["1. Client Tier (Web Browser)"]
+        direction TB
+        Shell["Presentation Shell<br/><code>index.html</code>"]
+        Controller["Presentation Controller<br/><code>js/app.js</code>"]
+        DAL["Data Access Layer (DAL)<br/><code>js/api-service.js</code>"]
+        Storage[("Client Storage<br/><code>localStorage</code>")]
+    end
 
-    System_Boundary(c1, "Aplikasi Web Portfolio (Client-Side Context)") {
-        Container(spa_shell, "Presentation Layer (HTML Shell & UI)", "HTML5, Bootstrap 5.3, Custom CSS", "Menyediakan kerangka shell UI, grid responsif, styling tema, dan wadah render dinamis.")
-        Container(app_ctrl, "Client-Side Controller (app.js)", "Vanilla JavaScript (ES6+)", "Mengatur siklus hidup UI, routing filter kategori, sanitasi Anti-XSS (escapeHTML & sanitizeURL), injeksi modal universal, dan event listener.")
-        Container(dal_service, "Data Access Layer (api-service.js)", "JavaScript (Fetch API, Async/Await)", "Mengabstraksi pemanggilan HTTP GET data JSON dan eksekusi HTTP POST riil ke public REST API endpoint.")
-        ContainerDb(local_storage, "Client-Side Storage (localStorage)", "Browser Web Storage API", "Menyimpan catatan riwayat pemesanan layanan konsultasi secara persisten di perangkat pengguna.")
-    }
+    subgraph StaticTier["2. Edge CDN & Static Tier (GitHub Pages)"]
+        direction TB
+        StaticHost["Web Server & CDN Edge<br/><i>HTML, CSS, Image Assets</i>"]
+    end
 
-    System_Boundary(c2, "Static Hosting & Data Provider Tier (GitHub Pages / CDN)") {
-        Container(static_server, "Static Web Server / CDN Edge", "GitHub Pages Infrastructure", "Menyajikan berkas statis (index.html, style.css, assets gambar, dokumen).")
-        Container(json_provider, "Decoupled Data Providers (/data)", "JSON Files (Static REST Providers)", "Menyediakan payload data mentah: projects.json, services.json, dan profile.json.")
-    }
+    subgraph DataTier["3. Data Tier (Decoupled JSON Providers)"]
+        direction TB
+        ProjectsData["<code>data/projects.json</code>"]
+        ServicesData["<code>data/services.json</code>"]
+        ProfileData["<code>data/profile.json</code>"]
+    end
 
-    System_Ext(rest_endpoint, "Public REST API Service (JSONPlaceholder)", "Public HTTP POST Endpoint", "Menerima payload pemesanan via method POST, memvalidasi schema JSON, dan mengembalikan status HTTP 201 Created.")
+    subgraph ExternalApi["4. External API Tier (Public REST API)"]
+        direction TB
+        RestEndpoint["JSONPlaceholder Service<br/><code>POST /posts (201 Created)</code>"]
+    end
 
-    Rel(user, spa_shell, "1. Mengakses website melalui browser", "HTTPS / Web Standards")
-    Rel(spa_shell, static_server, "2. Mengunduh shell HTML, CSS, dan file JS", "HTTP/2 GET")
-    Rel(spa_shell, app_ctrl, "3. Menginisialisasi event DOMContentLoaded", "Internal DOM API")
-    Rel(app_ctrl, dal_service, "4. Meminta data proyek, layanan, dan profil", "Method Call (Async)")
-    Rel(dal_service, json_provider, "5. Mengambil payload data via fetch()", "Asynchronous HTTP GET")
-    Rel(json_provider, dal_service, "6. Mengembalikan JSON Payload DTO", "JSON Response")
-    Rel(dal_service, app_ctrl, "7. Resolusi Promise data", "JavaScript Objects")
-    Rel(app_ctrl, spa_shell, "8. Merender elemen kartu & modal via DOM Injection", "Sanitized innerHTML")
-    Rel(app_ctrl, local_storage, "9. Menyimpan & membaca riwayat pemesanan", "Storage API (Set/Get)")
-    Rel(app_ctrl, dal_service, "10. Mengirim formulir layanan via submitServiceOrder()", "Async Method Call")
-    Rel(dal_service, rest_endpoint, "11. Dispatch HTTP POST JSON Payload", "HTTPS POST (Content-Type: application/json)")
-    Rel(rest_endpoint, dal_service, "12. Respons DTO HTTP 201 Created", "JSON Response Body")
+    User -->|1. Akses Website| Shell
+    Shell -->|2. Unduh Aset Statis| StaticHost
+    Shell -->|3. Inisialisasi Controller| Controller
+    Controller -->|4. Request Data Proyek & Layanan| DAL
+    DAL -->|5. Asynchronous Fetch GET| ProjectsData
+    DAL -->|5. Asynchronous Fetch GET| ServicesData
+    DAL -->|5. Asynchronous Fetch GET| ProfileData
+    ProjectsData -.->|6. JSON DTO| DAL
+    ServicesData -.->|6. JSON DTO| DAL
+    ProfileData -.->|6. JSON DTO| DAL
+    DAL -->|7. Resolusi Promise Data| Controller
+    Controller -->|8. Render CSR & Dynamic Modal| Shell
+    Controller <-->|9. Simpan & Baca Riwayat| Storage
+    Controller -->|10. Dispatch Form Layanan| DAL
+    DAL -->|11. Real HTTP POST JSON| RestEndpoint
+    RestEndpoint -.->|12. Respons 201 Created DTO| DAL
 ```
 
 ---
@@ -194,14 +207,7 @@ Berikut adalah bukti tangkapan layar visual pengujian profiling lalu lintas jari
 
 ![DevTools Network Profiling Waterfall](assets/devtools-waterfall.png)
 
-> **Panduan Penggantian Bukti Mandiri oleh Mahasiswa:**  
-> Berkas gambar di atas tersimpan secara fisik di direktori repositori pada path [`assets/devtools-waterfall.png`](file:///assets/devtools-waterfall.png). Mahasiswa dapat memperbarui gambar ini dengan tangkapan layar langsung dari Google Chrome di perangkat masing-masing melalui langkah-langkah berikut:
-> 1. Buka proyek ini di VS Code, lalu jalankan melalui ekstensi **Live Server** (`http://127.0.0.1:5500/index.html`).
-> 2. Tekan `F12` atau `Ctrl + Shift + I` untuk membuka **Chrome Developer Tools**, lalu pilih tab **Network**.
-> 3. Pastikan kotak centang **Disable cache** dalam keadaan *tidak dicentang* (*unchecked*) agar browser memanfaatkan cache lokal sesuai standar RFC 9111.
-> 4. Lakukan refresh halaman (`F5`) untuk mencatat respon status `304 Not Modified` dan `200 (disk cache)`.
-> 5. Gulir ke bawah menuju formulir pemesanan layanan, isi kolom data, lalu klik tombol **"Kirim Permintaan Konsultasi"** untuk memicu request jaringan riil `POST /posts` dengan respon `201 Created`.
-> 6. Lakukan tangkapan layar (*screenshot*) pada seluruh area panel Network DevTools tersebut, beri nama `devtools-waterfall.png`, lalu simpan ke dalam folder `assets/` (menimpa file yang telah ada).
+Tangkapan layar di atas memvalidasi efisiensi arsitektur *Client-Side Rendering (CSR)* dan mekanisme *HTTP Caching* (RFC 9111), di mana berkas statis dan data JSON dilayani dengan status `304 Not Modified` atau `(disk cache)`, serta transaksi asinkron pengiriman formulir layanan ke REST API endpoint tercatat secara riil dengan status `201 Created`.
 
 ---
 
