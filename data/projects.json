@@ -1,0 +1,303 @@
+[
+  {
+    "id": "project-01",
+    "title": "Perancangan Aplikasi Jadwal Imunisasi Anak Indonesia",
+    "subtitle": "TEMANI (Teman Imunisasi) — Kelompok 09",
+    "category": "UI/UX Design",
+    "categoryKey": "uiux",
+    "badgeType": "Dokumentasi Lengkap",
+    "badgeIcon": "bi-patch-check-fill",
+    "shortDescription": "Studi kasus perancangan aplikasi mobile berbasis Design Thinking untuk menjawab kesenjangan 35,8% cakupan imunisasi dasar lengkap dan risiko 1,35 juta anak tanpa vaksin di Indonesia.",
+    "fullDescription": "Proyek perancangan antarmuka pengguna (UI/UX) komprehensif bernama TEMANI (Teman Imunisasi) yang ditujukan untuk orang tua muda di Indonesia. Berangkat dari riset sekunder data Kementerian Kesehatan RI dan UNICEF yang menunjukkan kesenjangan imunisasi dasar lengkap (IDL) nasional sebesar 35,8% serta lebih dari 1,35 juta anak rentan tanpa vaksinasi memadai. Menggunakan metodologi Design Thinking secara terstruktur: fase Empathize melalui survei orang tua dan tenaga medis posyandu, Define melalui perumusan User Persona 'Mama Sarah', Ideate melalui Information Architecture dan User Flow, Prototyping interaktif 73 layar Figma, hingga Usability Testing evaluatif.",
+    "metrics": [
+      {
+        "label": "Kesenjangan Imunisasi",
+        "value": "35.8%",
+        "context": "Riset Data Kemenkes RI"
+      },
+      {
+        "label": "Anak Berisiko",
+        "value": "1.35 Juta",
+        "context": "Anak Tanpa Vaksin Lengkap"
+      },
+      {
+        "label": "Interaksi Figma",
+        "value": "73 Screen",
+        "context": "High-Fidelity Prototype"
+      },
+      {
+        "label": "Naskah Presentasi",
+        "value": "66 Slides",
+        "context": "Dokumentasi PPTX 13 MB"
+      }
+    ],
+    "tags": [
+      "Design Thinking",
+      "User Research",
+      "Sitemap & Flow",
+      "UI Style Guide",
+      "73 Figma Interaksi"
+    ],
+    "thumbnail": "assets/projects/project-01/cover.png",
+    "artifacts": [
+      {
+        "title": "User Persona (Mama Sarah)",
+        "caption": "Profil representatif orang tua muda pekerja yang membutuhkan pengingat otomatis jadwal imunisasi berkala dan direktori posyandu terdekat.",
+        "image": "assets/projects/project-01/persona.png"
+      },
+      {
+        "title": "User Research & Problem Framing",
+        "caption": "Sintesis data lapangan mengenai kecemasan orang tua, keterlambatan buku KIA fisik, dan hambatan akses informasi vaksinasi.",
+        "image": "assets/projects/project-01/research.png"
+      },
+      {
+        "title": "User Flow & Task Architecture",
+        "caption": "Pemodelan alur pengguna mulai dari pendaftaran profil anak, pemilihan fasilitas kesehatan, penjadwalan imunisasi, hingga pencatatan riwayat digital.",
+        "image": "assets/projects/project-01/flow.png"
+      },
+      {
+        "title": "UI Style Guide & Design System",
+        "caption": "Standardisasi palet warna Teal & Coral yang ramah keluarga, tipografi Plus Jakarta Sans, tombol interaktif, dan status micro-interactions.",
+        "image": "assets/projects/project-01/ui-style-guide.png"
+      },
+      {
+        "title": "High-Fidelity Prototype (Figma)",
+        "caption": "Prototipe interaktif mencakup 73 frame layar yang telah diuji kepada calon pengguna untuk memastikan kemudahan navigasi mobile.",
+        "image": "assets/projects/project-01/prototype.png"
+      }
+    ],
+    "downloadLink": {
+      "url": "assets/projects/project-01/14_UIUX_09_Nicolas.pptx",
+      "label": "Unduh Presentasi Asli (PPTX 13 MB)",
+      "type": "pptx",
+      "icon": "bi-file-earmark-slides"
+    }
+  },
+  {
+    "id": "project-02",
+    "title": "Business Plan CENDERAMATAK",
+    "subtitle": "Toba di Genggaman, Kenangan di Tangan — Multi-Sided Souvenir Platform",
+    "category": "Business Plan",
+    "categoryKey": "business",
+    "badgeType": "Dokumentasi 81 Hal.",
+    "badgeIcon": "bi-patch-check-fill",
+    "shortDescription": "Perencanaan bisnis platform multi-sided digital untuk merevolusi belanja oleh-oleh khas Batak di Danau Toba via integrasi QR Code & QRIS di mitra homestay, kurasi UMKM, dan personal assistance.",
+    "fullDescription": "Perencanaan bisnis digital venture terpadu bernama Cenderamatak yang beroperasi sebagai platform multi-sided di Kawasan Pariwisata Super Prioritas Danau Toba. Mengatasi friksi wisatawan dalam mencari cinderamata otentik Batak tanpa perlu membuang waktu liburan mencari toko fisik. Mengintegrasikan teknologi pemesanan berbasis katalog digital di homestay mitra, pembayaran nontunai QRIS, layanan kurir antar-jemput cepat, dan kurasi pengrajin lokal. Dilengkapi Business Model Canvas (BMC), studi kelayakan finansial 3 tahun, skema komisi konsinyasi bertingkat 9% hingga 15%, dan analisis risiko pasar.",
+    "metrics": [
+      {
+        "label": "Model Komisi",
+        "value": "9% - 15%",
+        "context": "Konsinyasi Bertingkat"
+      },
+      {
+        "label": "Dokumen Naskah",
+        "value": "81 Halaman",
+        "context": "Laporan Bisnis Lengkap"
+      },
+      {
+        "label": "Strategi Kanal",
+        "value": "Dual-Channel",
+        "context": "B2B Homestay & B2C Wisatawan"
+      },
+      {
+        "label": "Mitra UMKM",
+        "value": "20+ Pengrajin",
+        "context": "Kawasan Toba Samosir"
+      }
+    ],
+    "tags": [
+      "Business Model Canvas",
+      "Multi-Sided Platform",
+      "QR Code & QRIS",
+      "Dual-Channel Strategy",
+      "UMKM Danau Toba"
+    ],
+    "thumbnail": "assets/projects/project-02/logo-usaha-tekno.png",
+    "artifacts": [
+      {
+        "title": "Visual Identity & Cover Usaha",
+        "caption": "Identitas merek dan sampul visual naskah perencanaan bisnis Cenderamatak khas Danau Toba.",
+        "image": "assets/projects/project-02/cover.png"
+      },
+      {
+        "title": "Business Model Canvas (BMC)",
+        "caption": "Pemetaan 9 blok kanvas model bisnis meliputi segmen wisatawan, mitra homestay, mitra pengrajin, sumber pendapatan, dan struktur biaya.",
+        "image": "assets/projects/project-02/business-model.png"
+      },
+      {
+        "title": "Katalog Varian Produk Suvenir",
+        "caption": "Mockup kurasi produk cinderamata kacamata berukir etnik, kain ulos kontemporer, dan kerajinan tangan lokal.",
+        "image": "assets/projects/project-02/product.png"
+      },
+      {
+        "title": "Analisis Pasar & Kompetitor",
+        "caption": "Evaluasi TAM, SAM, SOM, analisis kompetitor toko suvenir konvensional, dan proposisi nilai personal assistance.",
+        "image": "assets/projects/project-02/market.png"
+      },
+      {
+        "title": "Proyeksi Finansial & Break-Even Point",
+        "caption": "Kalkulasi modal awal investasi, proyeksi arus kas 3 tahun, dan penentuan titik impas penjualan per unit suvenir.",
+        "image": "assets/projects/project-02/financial.png"
+      },
+      {
+        "title": "Roadmap Strategi Eksekusi",
+        "caption": "Langkah validasi kemitraan, pilot testing di 10 homestay Toba, kampanye promosi digital, dan integrasi logistik lokal.",
+        "image": "assets/projects/project-02/strategy.png"
+      }
+    ],
+    "downloadLink": {
+      "url": "assets/projects/project-02/Business_Plan_CenderaMatak.pdf",
+      "label": "Buka Dokumen Business Plan Lengkap (PDF 81 Halaman)",
+      "type": "pdf",
+      "icon": "bi-file-earmark-pdf"
+    }
+  },
+  {
+    "id": "project-03",
+    "title": "Sistem Pengambilan Paket Berbasis Web/Mobile (SiTitip)",
+    "subtitle": "System Requirements Specification (SyRS IEEE 830) — Kelompok 12",
+    "category": "System Analysis",
+    "categoryKey": "system",
+    "badgeType": "Dokumentasi Lengkap",
+    "badgeIcon": "bi-patch-check-fill",
+    "shortDescription": "Spesifikasi kebutuhan sistem SiTitip untuk mendigitalisasi operasional penitipan paket di UMKM Warung Anugerah sekitar kampus IT Del, memangkas service time dari 15m 40s via auto-generate ID unik dan WhatsApp Gateway.",
+    "fullDescription": "Dokumen rekayasa kebutuhan perangkat lunak formal berstandar internasional IEEE Std 830-1998 untuk sistem SiTitip. Disusun guna mengatasi bottleneck operasional penumpukan paket mahasiswa di UMKM Warung Anugerah dekat gerbang kampus Institut Teknologi Del. Waktu pelayanan manual awal mencapai 15 menit 40 detik akibat pencarian manual di tumpukan ratusan kardus. Melalui analisis kebutuhan sistematis, SiTitip mendesain sistem digital berbasis penomoran rak otomatis, pembuatan ID unik paket, notifikasi instan WhatsApp Gateway, dan verifikasi barcode/PIN saat pengambilan untuk memangkas waktu layanan di bawah 2 menit.",
+    "metrics": [
+      {
+        "label": "Waktu Layanan Awal",
+        "value": "15m 40s",
+        "context": "Pencarian Manual per Mahasiswa"
+      },
+      {
+        "label": "Dokumen SyRS",
+        "value": "61 Halaman",
+        "context": "Standar IEEE Std 830-1998"
+      },
+      {
+        "label": "Target Efisiensi",
+        "value": "< 2 Menit",
+        "context": "Waktu Pelayanan Digital Baru"
+      },
+      {
+        "label": "Notifikasi Realtime",
+        "value": "WhatsApp API",
+        "context": "Auto-Gateway Notifier"
+      }
+    ],
+    "tags": [
+      "Requirements Engineering",
+      "BPMN & UML Modeling",
+      "DFD & ERD",
+      "WhatsApp API Gateway",
+      "Laravel & MySQL"
+    ],
+    "thumbnail": "assets/projects/project-03/cover.png",
+    "artifacts": [
+      {
+        "title": "BPMN 2.0 Business Process Model",
+        "caption": "Pemodelan alur kerja operasional penerimaan paket dari kurir ekspedisi, alokasi kode rak, notifikasi otomatis, dan verifikasi serah terima paket.",
+        "image": "assets/projects/project-03/bpmn.png"
+      },
+      {
+        "title": "Data Flow Diagram (DFD Level 0 & Level 1)",
+        "caption": "Dekomposisi aliran data sistem penitipan paket antara entitas eksternal Mahasiswa, Petugas Warung, dan Administrator.",
+        "image": "assets/projects/project-03/dfd.png"
+      },
+      {
+        "title": "Entity-Relationship Diagram (ERD)",
+        "caption": "Struktur basis data relasional ternormalisasi: entitas pelanggan, paket masuk, nomor rak, status klaim, dan log transaksi.",
+        "image": "assets/projects/project-03/erd.png"
+      },
+      {
+        "title": "Use Case Diagram & Spesifikasi Use Case",
+        "caption": "Pemetaan 8 use case fungsional utama mencakup registrasi paket, pelacakan status, konfirmasi kedatangan, dan verifikasi PIN pengambilan.",
+        "image": "assets/projects/project-03/usecase.png"
+      },
+      {
+        "title": "Mockup Antarmuka Pengambilan Paket",
+        "caption": "Desain antarmuka responsif untuk validasi kode verifikasi pengambilan paket oleh petugas kasir.",
+        "image": "assets/projects/project-03/pembayaran.png"
+      },
+      {
+        "title": "Mockup Dashboard Monitoring Paket",
+        "caption": "Tampilan dashboard web admin untuk memantau kapasitas rak, paket mengendap lebih dari 3 hari, dan rekapitulasi harian.",
+        "image": "assets/projects/project-03/monitoring.png"
+      }
+    ],
+    "downloadLink": {
+      "url": "assets/projects/project-03/12_SyRS_Fiznal.pdf",
+      "label": "Buka Dokumen SyRS Lengkap (PDF 61 Halaman)",
+      "type": "pdf",
+      "icon": "bi-file-earmark-pdf"
+    }
+  },
+  {
+    "id": "project-04",
+    "title": "Tugas Besar Manajemen Proses Bisnis",
+    "subtitle": "Analisis & Redesign Proses Izin Keluar (IK) dan Izin Bermalam (IB)",
+    "category": "BPM",
+    "categoryKey": "bpm",
+    "badgeType": "Terverifikasi 95 Hal.",
+    "badgeIcon": "bi-check-circle-fill",
+    "shortDescription": "Analisis komprehensif dan perancangan ulang proses bisnis perizinan mahasiswa kampus (IK dan IB) menggunakan BPM Lifecycle: pemetaan As-Is, analisis kualitatif 6M & Pareto, analisis kuantitatif M/M/c, hingga perancangan ulang To-Be.",
+    "fullDescription": "Studi kasus akademik resmi mata kuliah Manajemen Proses Bisnis (T.A. 2025/2026, Dosen Pengampu Susi Eva Maria Purba, S.Kom., M.Sc.) berdasarkan naskah laporan 95 halaman. Menganalisis alur persetujuan Izin Keluar (IK) dan Izin Bermalam (IB) di lingkungan asrama kampus. Mengidentifikasi kelemahan alur sekuensial awal (Mahasiswa -> Dosen Pengampu -> Dosen Wali -> Keasramaan -> BAAK) yang menghasilkan Cycle Time Efficiency (CTE) awal hanya 2,54% (waktu proses 28 menit vs total lead time 1.100 menit). Dilakukan analisis kualitatif (VA/BVA/NVA, 5-Whys, Fishbone 6M, Pareto 80/20) dan kuantitatif (antrean M/M/1 Keasramaan utilisasi rho = 0,967 dengan antrean 29 orang). Melalui Heuristic Redesign (H1 Task Elimination eliminasi peran pasif BAAK dan H9 Automation validasi paralel), CTE melonjak ke 66,86% pada simulasi Bizagi Modeler.",
+    "metrics": [
+      {
+        "label": "CTE Awal (As-Is)",
+        "value": "2.54%",
+        "context": "Lead Time 1.100 Menit"
+      },
+      {
+        "label": "CTE Baru (To-Be)",
+        "value": "66.86%",
+        "context": "Peningkatan Pasca-Redesain"
+      },
+      {
+        "label": "Antrean Keasramaan",
+        "value": "M/M/1 -> M/M/2",
+        "context": "rho Turun dari 0.967 ke 0.483"
+      },
+      {
+        "label": "Naskah Laporan",
+        "value": "95 Halaman",
+        "context": "Laporan Akademik Lengkap"
+      }
+    ],
+    "tags": [
+      "Business Process Management",
+      "Process Analysis",
+      "BPMN 2.0 Modeling",
+      "Queuing Theory M/M/c",
+      "Heuristic Redesign"
+    ],
+    "thumbnail": "assets/projects/project-04/cover.png",
+    "artifacts": [
+      {
+        "title": "As-Is Process Model Izin Keluar (BPMN 2.0)",
+        "caption": "Pemetaan alur proses persetujuan awal yang kaku dan sekuensial melibatkan Mahasiswa, Dosen, Keasramaan, dan BAAK.",
+        "image": "assets/projects/project-04/asis-bpmn-ik.png"
+      },
+      {
+        "title": "Fishbone Diagram Root-Cause Analysis (6M)",
+        "caption": "Analisis akar masalah 6 dimensi (Machine, Method, Manpower, Measurement, Material, Milieu) penyebab tingginya waktu tunggu perizinan.",
+        "image": "assets/projects/project-04/fishbone-ik.png"
+      },
+      {
+        "title": "Pareto Analysis Kendala Proses IK",
+        "caption": "Grafik Pareto 80/20 yang mengisolasi 'vital few' masalah utama: alur birokrasi berulang dan BAAK sebagai bottleneck non-value added.",
+        "image": "assets/projects/project-04/pareto-ik.png"
+      },
+      {
+        "title": "To-Be Process Model Izin Keluar (BPMN 2.0)",
+        "caption": "Diagram alur proses rekayasa ulang setelah eliminasi tugas persetujuan manual BAAK dan otomatisasi penerusan status izin secara paralel.",
+        "image": "assets/projects/project-04/tobe-bpmn-ik.png"
+      }
+    ],
+    "downloadLink": {
+      "url": "assets/projects/project-04/TB_Manajemen_Proses_Bisnis_01.docx",
+      "label": "Unduh Naskah Tugas Besar Lengkap (DOCX 8 MB)",
+      "type": "docx",
+      "icon": "bi-file-earmark-word"
+    }
+  }
+]

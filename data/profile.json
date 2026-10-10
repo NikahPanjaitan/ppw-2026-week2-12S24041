@@ -1,0 +1,58 @@
+{
+  "name": "Nikah Suchia Panjaitan",
+  "nim": "12S24041",
+  "program": "Sarjana Sistem Informasi",
+  "faculty": "Fakultas Informatika dan Teknik Elektro",
+  "institution": "Institut Teknologi Del",
+  "semester": "Semester V (Tahun Akademik 2026/2027)",
+  "status": "Mahasiswa Aktif",
+  "avatar": "assets/foto-profil.jpg",
+  "tagline": "Mahasiswa Sarjana Sistem Informasi • IT Del",
+  "bio": "Mahasiswa Sarjana Sistem Informasi di Institut Teknologi Del yang memiliki dedikasi mendalam pada rekayasa antarmuka web kontemporer, pemodelan proses bisnis (BPM), perancangan pengalaman pengguna (UI/UX), dan rekayasa kebutuhan perangkat lunak formal (SyRS). Memadukan ketelitian analitis sistemik dengan implementasi kode frontend yang modular, berstandar industri, dan teruji kinerjanya.",
+  "competencies": [
+    {
+      "name": "Frontend Engineering",
+      "level": "Mahir",
+      "items": ["HTML5 Semantik", "Bootstrap 5.3 Framework", "Modern CSS3 & CSS Variables", "Client-Side Rendering (CSR)"]
+    },
+    {
+      "name": "System & Process Modeling",
+      "level": "Mahir",
+      "items": ["BPMN 2.0 (Bizagi Modeler)", "Queuing Theory M/M/c", "DFD Bertingkat & ERD Relasional", "IEEE Std 830 SyRS"]
+    },
+    {
+      "name": "UI/UX & Business Design",
+      "level": "Menengah - Mahir",
+      "items": ["Figma Prototyping", "Design Thinking Framework", "Business Model Canvas (BMC)", "Usability Testing"]
+    }
+  ],
+  "statistics": [
+    {
+      "label": "Proyek Akademik",
+      "value": "04 Proyek",
+      "icon": "bi-folder-check"
+    },
+    {
+      "label": "Layar Figma",
+      "value": "73 Screen",
+      "icon": "bi-phone"
+    },
+    {
+      "label": "Dokumentasi Ilmiah",
+      "value": "300+ Hal.",
+      "icon": "bi-journal-richtext"
+    },
+    {
+      "label": "Spesifisitas CSS",
+      "value": "0 !important",
+      "icon": "bi-shield-check"
+    }
+  ],
+  "contacts": {
+    "email": "12s24041@students.del.ac.id",
+    "github": "https://github.com/NikahPanjaitan",
+    "repository": "https://github.com/NikahPanjaitan/ppw-2026-week2-12S24041",
+    "deployment": "https://nikahpanjaitan.github.io/ppw-2026-week2-12S24041/",
+    "location": "Sitoluama, Laguboti, Kabupaten Toba, Sumatera Utara"
+  }
+}

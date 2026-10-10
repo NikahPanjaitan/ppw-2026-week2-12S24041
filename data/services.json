@@ -1,0 +1,62 @@
+[
+  {
+    "id": "srv-01",
+    "name": "UI/UX Design & Usability Mentoring",
+    "category": "Desain UI/UX",
+    "description": "Konsultasi intensif perancangan antarmuka pengguna mobile/web, riset persona, wireframing, dan perakitan prototipe interaktif high-fidelity di Figma sesuai prinsip Design Thinking dan aksesibilitas W3C.",
+    "sessionDuration": "60 Menit / Sesi",
+    "sessionCountDefault": 2,
+    "icon": "bi-palette2",
+    "badge": "Paling Populer",
+    "deliverables": [
+      "Audit Heuristik Desain Antarmuka",
+      "Review Sitemap & User Flow Interaktif",
+      "Panduan Komponen Figma & Design System"
+    ]
+  },
+  {
+    "id": "srv-02",
+    "name": "Business Model & Digital Venture Advisory",
+    "category": "Perencanaan Bisnis",
+    "description": "Pendampingan perumusan model bisnis teknologi, penyusunan Business Model Canvas (BMC), strategi kemitraan multi-sided platform, analisis kelayakan pasar (TAM/SAM/SOM), dan proyeksi arus kas operasional.",
+    "sessionDuration": "90 Menit / Sesi",
+    "sessionCountDefault": 1,
+    "icon": "bi-briefcase",
+    "badge": "Strategis",
+    "deliverables": [
+      "Penyusunan 9 Blok Business Model Canvas",
+      "Model Monetisasi & Skema Komisi Konsinyasi",
+      "Kalkulasi Break-Even Point (BEP) & Arus Kas"
+    ]
+  },
+  {
+    "id": "srv-03",
+    "name": "Business Process Management & BPMN 2.0 Redesign",
+    "category": "Manajemen Proses Bisnis",
+    "description": "Konsultasi pemetaan alur proses bisnis kampus/organisasi dari As-Is ke To-Be menggunakan standar BPMN 2.0 di Bizagi Modeler, analisis kualitatif (VA/BVA/NVA, Fishbone 6M, Pareto), dan simulasi antrean M/M/c.",
+    "sessionDuration": "75 Menit / Sesi",
+    "sessionCountDefault": 2,
+    "icon": "bi-diagram-3",
+    "badge": "Rekomendasi",
+    "deliverables": [
+      "Diagram As-Is & To-Be BPMN 2.0 Terstandarisasi",
+      "Matriks Analisis Nilai Tambah & Waktu Siklus (CTE)",
+      "Penerapan Heuristik Redesain H1 (Eliminasi) & H9 (Otomasi)"
+    ]
+  },
+  {
+    "id": "srv-04",
+    "name": "Software Requirements Engineering (SyRS IEEE 830)",
+    "category": "Analisis Sistem",
+    "description": "Bimbingan penyusunan dokumen spesifikasi kebutuhan perangkat lunak formal (SyRS) mengacu standar internasional IEEE Std 830-1998, pemodelan DFD bertingkat, skema database ERD, dan spesifikasi use case.",
+    "sessionDuration": "90 Menit / Sesi",
+    "sessionCountDefault": 1,
+    "icon": "bi-file-earmark-code",
+    "badge": "Teknikal",
+    "deliverables": [
+      "Struktur Dokumen SyRS IEEE 830-1998",
+      "Diagram DFD Level 0 (Konteks) & DFD Level 1",
+      "Skema Relasional Basis Data (ERD) Ternormalisasi"
+    ]
+  }
+]

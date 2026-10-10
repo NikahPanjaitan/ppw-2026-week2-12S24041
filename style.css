@@ -2648,3 +2648,56 @@ legend {
     }
 
 }
+
+
+/* =========================================================
+   20. WEEK 4: DECOUPLED DYNAMIC CSR & UI STATES
+   ========================================================= */
+
+.portfolio-filter-wrapper .btn {
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+}
+
+.portfolio-filter-wrapper .btn-outline-primary {
+    color: var(--slate);
+    border-color: var(--border);
+    background-color: var(--surface);
+}
+
+.portfolio-filter-wrapper .btn-outline-primary:hover {
+    color: var(--mauve-dark);
+    border-color: var(--mauve);
+    background-color: var(--primary-soft);
+}
+
+.portfolio-filter-wrapper .btn-primary.active,
+.portfolio-filter-wrapper .btn-primary:active {
+    background-color: var(--navy-900);
+    border-color: var(--navy-900);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 31, 84, 0.2);
+}
+
+.border-dashed {
+    border: 2px dashed #d0d7de;
+}
+
+.order-history-container {
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.order-history-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.order-history-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.toast {
+    box-shadow: var(--shadow-modal);
+}
