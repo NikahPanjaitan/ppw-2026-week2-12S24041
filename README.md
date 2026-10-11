@@ -27,44 +27,20 @@ Pada tugas ini:
 ---
 
 ### 2. Pemodelan Arsitektur Sistem (Separation of Concerns)
-Aplikasi membagi tanggung jawab kerja (*Separation of Concerns*) ke dalam beberapa layer:
-- **Presentation Tier**: `index.html` dan `style.css` untuk kerangka dan visual, serta `js/app.js` sebagai pengendali interaksi antarmuka dan modal dinamis.
+Aplikasi membagi tanggung jawab kerja (*Separation of Concerns*) ke dalam layer mandiri:
+- **Presentation Tier**: `index.html` dan `style.css` untuk kerangka dan visual, serta `js/app.js` sebagai pengendali antarmuka dan modal dinamis.
 - **Data Access Layer (DAL)**: `js/api-service.js` untuk mengabstraksi pemanggilan data asinkron via `fetch()` dan pengiriman form HTTP POST.
-- **Data Tier**: Berkas JSON lokal (`data/projects.json`, `services.json`, `profile.json`) sebagai sumber data mandiri.
-- **External API & Storage**: Layanan mock REST API publik (`JSONPlaceholder`) untuk pengujian transaksi formulir dan `localStorage` untuk penyimpanan riwayat lokal.
+- **Data Tier**: Berkas JSON lokal (`data/projects.json`, `services.json`, `profile.json`) sebagai penyedia data.
+- **External API & Storage**: Layanan REST API publik (`JSONPlaceholder`) untuk pengiriman formulir dan `localStorage` untuk menyimpan riwayat pesanan.
 
 ```mermaid
-flowchart TD
-    User([Pengguna / Browser])
-
-    subgraph Client["1. Client Tier (Browser)"]
-        UI["UI Shell<br>index.html & style.css"]
-        App["Presentation Controller<br>js/app.js"]
-        DAL["Data Access Layer<br>js/api-service.js"]
-        Storage[("Web Storage<br>localStorage")]
-    end
-
-    subgraph Static["2. Hosting & Data Tier"]
-        GH["GitHub Pages<br>(Static Host)"]
-        Data["Decoupled JSON<br>projects, services, profile"]
-    end
-
-    subgraph External["3. External Service"]
-        API["Public REST API<br>jsonplaceholder.typicode.com"]
-    end
-
-    User --> UI
-    UI --> GH
-    UI --> App
-    App --> DAL
-    DAL -->|Fetch GET| Data
-    Data -.->|Data JSON| DAL
-    DAL -.->|Resolve Data| App
-    App -->|Render CSR & Modal| UI
-    App <--> Storage
-    App -->|Submit Order| DAL
-    DAL -->|HTTP POST| API
-    API -.->|201 Created| DAL
+flowchart LR
+    User([Pengguna]) --> UI[index.html & UI]
+    UI --> App[js/app.js]
+    App --> DAL[js/api-service.js]
+    DAL -->|Fetch GET| Data[(data/*.json)]
+    DAL -->|HTTP POST| API[REST API]
+    App -.->|Simpan Order| Storage[(localStorage)]
 ```
 
 ---
@@ -87,8 +63,7 @@ Perbandingan implementasi antara Minggu 3 (statis) dan Minggu 4 (decoupled CSR):
 ### 4. Pengujian Kinerja Jaringan (DevTools Profiling — RFC 9111)
 Pengujian profil jaringan dilakukan menggunakan tab Network pada Google Chrome DevTools untuk membandingkan kondisi *Cold Load* (cache dinonaktifkan) dan *Warm Load* (cache aktif):
 
-#### Tabel Pengukuran Jaringan
-| Parameter Pengujian | Cold Load (Bersih) | Warm Load (Kunjungan Ulang) | Analisis Singkat |
+| Parameter Pengujian | Cold Load (Bersih) | Warm Load (Kunjungan Ulang) | Analisis & Keterangan |
 |---|:---:|:---:|---|
 | **Status HTTP Response** | `200 OK` | `304 Not Modified` / `(disk cache)` | Membuktikan berjalannya validasi cache RFC 9111. |
 | **Ukuran Transfer Data** | ~850 KB | ~35 KB | Menghemat penggunaan bandwidth lebih dari 95%. |
@@ -96,11 +71,6 @@ Pengujian profil jaringan dilakukan menggunakan tab Network pada Google Chrome D
 | **Finish Time** | ~780 ms | ~195 ms | Waktu pemuatan total berkurang drastis (~75%). |
 | **DOMContentLoaded (DCL)** | ~280 ms | ~90 ms | DOM diparse lebih cepat karena markup HTML ringkas. |
 | **Load Event Time** | ~520 ms | ~140 ms | Seluruh aset selesai dimuat secara instan. |
-
-#### Bukti Tangkapan Layar Profiling DevTools
-Berikut tangkapan layar tab Network yang memperlihatkan respon cache `304 Not Modified`, `(disk cache)`, dan pencatatan transaksi nyata `POST /posts` dengan status `201 Created`:
-
-![DevTools Network Profiling Waterfall](assets/devtools-waterfall.png)
 
 ---
 
@@ -119,7 +89,6 @@ ppw-2026-week2-12S24041/
 │   ├── api-service.js                      # Data Access Layer (Fetch & HTTP POST)
 │   └── app.js                              # Controller CSR, modal universal, anti-XSS
 └── assets/                                 # Aset gambar dan dokumen
-    ├── devtools-waterfall.png              # Bukti profiling tab Network DevTools
     ├── foto-profil.jpg                     # Foto profil mahasiswa
     └── projects/
         ├── project-01/
