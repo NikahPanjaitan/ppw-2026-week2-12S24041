@@ -1,151 +1,95 @@
 /**
- * @file api-service.js
- * @description Data Access Layer (DAL) untuk memfasilitasi komunikasi asinkron
- *              dengan decoupled JSON providers dan simulasi RESTful API endpoint.
- * @module ApiService
- * @author Nikah Suchia Panjaitan (NIM: 12S24041)
- * @course 12S3101 - Pemrograman dan Pengujian Web (Modul 04)
+ * api-service.js
+ * Modul pembantu untuk mengambil data JSON dan mengirim form ke REST API.
+ * Mahasiswa: Nikah Suchia Panjaitan (12S24041)
  */
 
 class ApiService {
-    /**
-     * Endpoint path ke berkas data JSON
-     * @private
-     */
-    static #endpoints = {
+    // Alamat berkas data JSON lokal
+    static endpoints = {
         projects: './data/projects.json',
         services: './data/services.json',
         profile: './data/profile.json'
     };
 
-    /**
-     * Fungsi pembantu generik untuk melakukan HTTP GET menggunakan fetch API
-     * dengan penanganan error defensif.
-     * @private
-     * @param {string} endpoint 
-     * @returns {Promise<any>}
-     */
-    static async #fetchData(endpoint) {
+    // Fungsi bantu untuk memanggil fetch dengan penanganan error sederhana
+    static async fetchData(endpoint) {
         try {
-            const response = await fetch(endpoint, {
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
+            const response = await fetch(endpoint);
             if (!response.ok) {
-                throw new Error(`HTTP Error ${response.status}: Gagal memuat data dari ${endpoint} (${response.statusText})`);
+                throw new Error(`Gagal memuat data dari ${endpoint} (Status: ${response.status})`);
             }
-
-            const data = await response.json();
-            return data;
+            return await response.json();
         } catch (error) {
-            console.error(`[ApiService Network Error] Kegagalan saat memanggil ${endpoint}:`, error);
+            console.error('Terjadi error saat fetch data:', error);
             throw error;
         }
     }
 
-    /**
-     * Mengambil seluruh koleksi data proyek portofolio akademik
-     * @returns {Promise<Array<object>>}
-     */
+    // Mengambil data proyek dari projects.json
     static async getProjects() {
-        return await this.#fetchData(this.#endpoints.projects);
+        return await this.fetchData(this.endpoints.projects);
     }
 
-    /**
-     * Mengambil katalog paket layanan konsultasi akademik
-     * @returns {Promise<Array<object>>}
-     */
+    // Mengambil data paket layanan dari services.json
     static async getServices() {
-        return await this.#fetchData(this.#endpoints.services);
+        return await this.fetchData(this.endpoints.services);
     }
 
-    /**
-     * Mengambil data diri mahasiswa pengembang
-     * @returns {Promise<object>}
-     */
+    // Mengambil data profil mahasiswa dari profile.json
     static async getProfile() {
-        return await this.#fetchData(this.#endpoints.profile);
+        return await this.fetchData(this.endpoints.profile);
     }
 
-    /**
-     * Mengambil satu proyek spesifik berdasarkan ID
-     * @param {string} projectId 
-     * @returns {Promise<object|null>}
-     */
+    // Mengambil satu proyek berdasarkan ID
     static async getProjectById(projectId) {
         const projects = await this.getProjects();
         return projects.find(p => p.id === projectId) || null;
     }
 
-    /**
-     * Mengirimkan data pemesanan layanan via HTTP POST asinkron (RESTful API riil)
-     * ke endpoint publik (jsonplaceholder) dengan header terstandarisasi,
-     * penanganan status HTTP defensif, dan pencatatan transaksi di Network DevTools.
-     * @param {object} payload Data pemesanan formulir
-     * @returns {Promise<object>} DTO JSON terstruktur hasil respons server
-     */
+    // Mengirim data formulir pemesanan layanan via HTTP POST ke REST API
     static async submitServiceOrder(payload) {
-        // Validasi defensif masukan di sisi service logic tier
-        if (!payload || typeof payload !== 'object') {
-            throw new Error('Payload pemesanan tidak valid.');
-        }
-
-        if (!payload.nama || !payload.email || !payload.layanan) {
+        if (!payload || !payload.nama || !payload.email || !payload.layanan) {
             throw new Error('Kolom Nama, Email, dan Layanan wajib diisi.');
         }
 
-        const requestPayload = {
-            nama: String(payload.nama).trim(),
-            email: String(payload.email).trim(),
-            telepon: payload.telepon ? String(payload.telepon).trim() : '-',
+        const dataKirim = {
+            nama: payload.nama.trim(),
+            email: payload.email.trim(),
+            telepon: payload.telepon ? payload.telepon.trim() : '-',
             layanan: payload.layanan,
             sesi: Number(payload.sesi) || 1,
             metode: payload.metode || 'Daring (Online)',
-            deskripsi: payload.deskripsi ? String(payload.deskripsi).trim() : '',
+            deskripsi: payload.deskripsi ? payload.deskripsi.trim() : '',
             persetujuan: Boolean(payload.persetujuan),
-            submittedAt: new Date().toISOString()
+            tanggal: new Date().toISOString()
         };
 
-        try {
-            // Eksekusi HTTP POST riil ke public REST endpoint
-            const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(requestPayload)
-            });
+        // Kirim HTTP POST ke endpoint publik JSONPlaceholder
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataKirim)
+        });
 
-            if (!response.ok) {
-                throw new Error(`HTTP Error ${response.status}: Gagal mengirim data pemesanan (${response.statusText})`);
-            }
-
-            const responseJson = await response.json();
-
-            // Kembalikan DTO terstruktur untuk presentation layer dan persistensi client-side
-            return {
-                success: true,
-                statusCode: response.status, // 201 Created
-                message: 'Permintaan layanan konsultasi akademik berhasil diproses dan dicatat oleh REST API.',
-                orderId: `ORD-${Date.now()}-${responseJson.id || Math.floor(Math.random() * 1000)}`,
-                receivedAt: new Date().toISOString(),
-                data: requestPayload
-            };
-        } catch (error) {
-            console.error('[ApiService POST Error] Kegagalan saat memproses HTTP POST:', error);
-            throw error;
+        if (!response.ok) {
+            throw new Error(`Gagal mengirim data ke server (HTTP ${response.status})`);
         }
+
+        const hasil = await response.json();
+
+        return {
+            success: true,
+            message: 'Permintaan layanan konsultasi berhasil dikirim!',
+            orderId: `ORD-${Date.now()}-${hasil.id || '01'}`,
+            data: dataKirim
+        };
     }
 }
 
-// Pastikan ApiService dapat diakses baik di lingkungan browser global maupun ES Modules
+// Supaya bisa diakses dari app.js di browser
 if (typeof window !== 'undefined') {
     window.ApiService = ApiService;
-}
-
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ApiService;
 }

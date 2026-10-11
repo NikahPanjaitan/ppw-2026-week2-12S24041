@@ -1,95 +1,89 @@
-# Tugas Praktikum Pemrograman dan Pengujian Web (12S3101)
-## Modul 04: Arsitektur Aplikasi Web Kontemporer — Decoupled Multi-Tier & Dynamic CSR
+# Laporan Praktikum Pemrograman dan Pengujian Web (12S3101)
+## Modul 04: Arsitektur Aplikasi Web (Decoupled Data, Dynamic CSR, & DevTools)
 
 ### Identitas Mahasiswa
 - **Nama**: Nikah Suchia Panjaitan
 - **NIM**: 12S24041
 - **Program Studi**: S1 Sistem Informasi
-- **Institusi**: Institut Teknologi Del
-- **Mata Kuliah**: 12S3101 - Pemrograman dan Pengujian Web
+- **Institut**: Institut Teknologi Del
 - **Dosen Pengampu**: Chandro Pardede, S.Kom., M.Sc.
-- **Tahun Akademik**: Semester Genap 2025/2026
-- **Branch Git Aktif**: `week4-architecture`
+- **Branch Git**: `week4-architecture`
 
 ---
 
-### 1. Deskripsi Singkat
-Repositori ini merupakan implementasi tugas Praktikum Minggu 4 yang mentransformasikan proyek portofolio Minggu 3 menjadi arsitektur web modern yang terpisah (*decoupled*). 
-
-Pada tugas ini:
-1. Konten proyek yang sebelumnya ditulis statis (*hardcoded*) di dalam berkas `index.html` dipindahkan ke berkas JSON mandiri di folder `data/` (`projects.json`, `services.json`, `profile.json`).
-2. Data dimuat secara asinkron dari sisi peramban (*Client-Side Rendering*) menggunakan modul `js/api-service.js` dan `js/app.js` dengan `fetch()` API dan `async/await`.
-3. Empat modal terpisah pada Minggu 3 disatukan menjadi 1 Universal Dynamic Modal (`#universalProjectModal`).
-4. Antarmuka dilengkapi penanganan 4 status visual (*Loading*, *Success*, *Empty*, dan *Error*).
-5. Formulir layanan dikirim secara asinkron (HTTP POST) ke REST endpoint publik dengan umpan balik visual Bootstrap Toast dan pencatatan riwayat di `localStorage`.
-6. Diterapkan fungsi sanitasi anti-XSS (`escapeHTML` dan validasi URL `sanitizeURL`).
+### 1. Ringkasan Tugas
+Pada praktikum minggu ke-4 ini, saya melanjutkan tugas portofolio minggu ke-3 dengan memisahkan data dari tampilan (arsitektur *decoupled*) dan memuat data secara dinamis dari sisi browser (*Client-Side Rendering*):
+1. **Pemisahan Data**: Konten kartu proyek, layanan, dan profil yang sebelumnya diketik langsung di file `index.html` dipindahkan ke file JSON terpisah di folder `data/` (`projects.json`, `services.json`, `profile.json`).
+2. **Pemuatan Dinamis**: Menggunakan JavaScript (`fetch()` dan `async/await`) untuk mengambil data JSON lalu menampilkannya ke halaman tanpa reload.
+3. **Modal Dinamis**: Mengganti 4 modal terpisah di minggu ke-3 menjadi 1 modal bersama (`#universalProjectModal`) yang isinya berubah otomatis sesuai kartu proyek yang diklik.
+4. **Status Tampilan (UI States)**: Menangani 4 kondisi antarmuka: saat memuat data (*loading*), data berhasil tampil (*success*), hasil filter kosong (*empty*), dan pesan error jika gagal mengambil data (*error*).
+5. **Form Pemesanan Layanan**: Mengirim data formulir via HTTP POST asinkron ke REST API publik (JSONPlaceholder) dan menyimpan riwayat pemesanan di `localStorage`.
+6. **Keamanan Input**: Menggunakan fungsi sanitasi (`escapeHTML` dan validasi URL) untuk mencegah risiko XSS saat merender teks dan gambar dinamis.
 
 ---
 
-### 2. Pemodelan Arsitektur Sistem (Separation of Concerns)
-Aplikasi membagi tanggung jawab kerja (*Separation of Concerns*) ke dalam layer mandiri:
-- **Presentation Tier**: `index.html` dan `style.css` untuk kerangka dan visual, serta `js/app.js` sebagai pengendali antarmuka dan modal dinamis.
-- **Data Access Layer (DAL)**: `js/api-service.js` untuk mengabstraksi pemanggilan data asinkron via `fetch()` dan pengiriman form HTTP POST.
-- **Data Tier**: Berkas JSON lokal (`data/projects.json`, `services.json`, `profile.json`) sebagai penyedia data.
-- **External API & Storage**: Layanan REST API publik (`JSONPlaceholder`) untuk pengiriman formulir dan `localStorage` untuk menyimpan riwayat pesanan.
+### 2. Alur Arsitektur Sistem (Separation of Concerns)
+Berikut alur pembagian tanggung jawab (*Separation of Concerns*) antara browser, file data JSON, dan API:
 
 ```mermaid
 flowchart LR
     User([Pengguna]) --> UI[index.html & UI]
     UI --> App[js/app.js]
     App --> DAL[js/api-service.js]
-    DAL -->|Fetch GET| Data[(data/*.json)]
-    DAL -->|HTTP POST| API[REST API]
-    App -.->|Simpan Order| Storage[(localStorage)]
+    DAL -->|Ambil Data| Data[(data/*.json)]
+    DAL -->|Kirim Form| API[REST API POST]
+    App -.->|Simpan Riwayat| Storage[(localStorage)]
 ```
 
+Penjelasan alur:
+- **Tampilan (Presentation)**: `index.html` dan `style.css` untuk kerangka dan gaya tampilan, serta `app.js` untuk mengatur kartu proyek, tombol filter, dan modal dinamis.
+- **Pengambilan Data (Data Access)**: `api-service.js` bertugas memanggil `fetch()` ke file JSON dan mengirim formulir via HTTP POST.
+- **Data Layer**: Berkas data `projects.json`, `services.json`, dan `profile.json` yang berdiri sendiri di folder `data/`.
+- **Penyimpanan Lokal**: Browser menyimpan riwayat pemesanan layanan di `localStorage`.
+
 ---
 
-### 3. Tabel Komparasi: Sebelum vs Sesudah Refactoring
-Perbandingan implementasi antara Minggu 3 (statis) dan Minggu 4 (decoupled CSR):
+### 3. Komparasi Minggu 3 vs Minggu 4
 
-| Aspek Evaluasi | Minggu 3 (Monolitik Statis) | Minggu 4 (Decoupled CSR) |
+| Bagian | Minggu 3 (Statis) | Minggu 4 (Dinamis / Decoupled) |
 |---|---|---|
-| **Penyimpanan Konten** | Ditulis manual (*hardcoded*) di dalam berkas `index.html`. | Didekomposisi ke berkas JSON modular (`/data/*.json`). |
-| **Komponen Modal** | 4 modal terpisah dengan markup HTML berulang. | Tepat 1 Universal Dynamic Modal yang diinjeksi via JavaScript. |
-| **Pemuatan Data** | Statis saat halaman dibuka pertama kali. | Dinamis via `fetch()` dan `async/await` dengan 4 UI states (*loading, success, empty, error*). |
-| **Filter Kategori** | Belum tersedia fitur filter. | Filter kategori proyek berfungsi instan di sisi klien tanpa *reload*. |
-| **Pengiriman Formulir** | Formulir HTML standar yang memicu reload halaman. | Asinkron via HTTP POST (`fetch`) dengan notifikasi Toast interaktif. |
-| **Penyimpanan State** | Data hilang begitu halaman ditutup atau di-reload. | Tersimpan secara persisten di `localStorage` dan terhubung ke *badge counter*. |
-| **Keamanan Input** | Mengandalkan validasi native HTML5 standar. | Dilengkapi sanitasi ganda anti-XSS (`escapeHTML` dan `sanitizeURL`). |
+| **Data Proyek** | Ditulis manual di file `index.html`. | Disimpan terpisah di `data/projects.json` dan dimuat via JavaScript. |
+| **Komponen Modal** | 4 modal terpisah di HTML (banyak kode berulang). | Cukup 1 modal dinamis yang diisi otomatis sesuai ID proyek. |
+| **Filter Kategori** | Belum ada fitur filter. | Filter kategori proyek berfungsi langsung tanpa reload halaman. |
+| **Formulir Layanan** | Submit form standar yang memicu reload halaman. | Form dikirim lewat HTTP POST asinkron dengan notifikasi Toast. |
+| **Riwayat Pesanan** | Hilang saat halaman ditutup atau di-refresh. | Tersimpan di `localStorage` browser. |
+| **Status Tampilan** | Tidak ada status loading atau error. | Ada tampilan loading, data kosong, dan pesan error jika fetch gagal. |
 
 ---
 
-### 4. Pengujian Kinerja Jaringan (DevTools Profiling — RFC 9111)
-Pengujian profil jaringan dilakukan menggunakan tab Network pada Google Chrome DevTools untuk membandingkan kondisi *Cold Load* (cache dinonaktifkan) dan *Warm Load* (cache aktif):
+### 4. Pengujian Jaringan di DevTools (RFC 9111)
+Pengujian performa jaringan dilakukan menggunakan tab Network di Google Chrome DevTools dengan membandingkan kondisi saat cache mati (*Cold Load*) dan saat cache aktif (*Warm Load*):
 
-| Parameter Pengujian | Cold Load (Bersih) | Warm Load (Kunjungan Ulang) | Analisis & Keterangan |
+| Parameter | Cold Load (Cache Mati) | Warm Load (Cache Aktif) | Keterangan & Analisis |
 |---|:---:|:---:|---|
-| **Status HTTP Response** | `200 OK` | `304 Not Modified` / `(disk cache)` | Membuktikan berjalannya validasi cache RFC 9111. |
-| **Ukuran Transfer Data** | ~850 KB | ~35 KB | Menghemat penggunaan bandwidth lebih dari 95%. |
-| **Time to First Byte (TTFB)** | ~45 ms | < 15 ms | Respon server dari cache/edge CDN sangat cepat. |
-| **Finish Time** | ~780 ms | ~195 ms | Waktu pemuatan total berkurang drastis (~75%). |
-| **DOMContentLoaded (DCL)** | ~280 ms | ~90 ms | DOM diparse lebih cepat karena markup HTML ringkas. |
-| **Load Event Time** | ~520 ms | ~140 ms | Seluruh aset selesai dimuat secara instan. |
+| **Status Response** | `200 OK` | `304 Not Modified` / `(disk cache)` | Menunjukkan efisiensi cache browser sesuai standar HTTP. |
+| **Ukuran Transfer** | ~850 KB | ~35 KB | Menghemat kuota dan transfer data lebih dari 90%. |
+| **Time to First Byte (TTFB)** | ~45 ms | < 15 ms | Respon server dari cache jauh lebih cepat. |
+| **Waktu Selesai (Finish)** | ~780 ms | ~195 ms | Waktu pemuatan halaman berkurang drastis pada kunjungan kedua. |
+| **DOMContentLoaded (DCL)** | ~280 ms | ~90 ms | Halaman diproses lebih cepat karena HTML lebih ringkas. |
 
 ---
 
-### 5. Struktur Direktori Proyek
+### 5. Struktur Folder
 ```text
 ppw-2026-week2-12S24041/
-├── index.html                              # Shell HTML utama & kontainer render
-├── style.css                               # Custom stylesheet & CSS variables
-├── README.md                               # Dokumentasi praktikum
-├── .gitattributes                          # Konfigurasi Git
-├── data/                                   # Data Tier (JSON Providers)
-│   ├── profile.json                        # Data profil mahasiswa
-│   ├── projects.json                       # 4 Proyek akademik & artefak
-│   └── services.json                       # Katalog layanan konsultasi
-├── js/                                     # Logic & Presentation Tier
-│   ├── api-service.js                      # Data Access Layer (Fetch & HTTP POST)
-│   └── app.js                              # Controller CSR, modal universal, anti-XSS
-└── assets/                                 # Aset gambar dan dokumen
-    ├── foto-profil.jpg                     # Foto profil mahasiswa
+├── index.html          # File HTML utama
+├── style.css           # File CSS styling
+├── README.md           # Laporan dokumentasi tugas
+├── data/               # Folder data JSON
+│   ├── profile.json    # Biodata mahasiswa
+│   ├── projects.json   # Data 4 proyek portofolio
+│   └── services.json   # Data paket konsultasi
+├── js/                 # Folder kode JavaScript
+│   ├── api-service.js  # Fungsi fetch data & kirim POST
+│   └── app.js          # Controller antarmuka & modal dinamis
+└── assets/             # Aset gambar dan dokumen
+    ├── foto-profil.jpg
     └── projects/
         ├── project-01/
         ├── project-02/
@@ -99,15 +93,14 @@ ppw-2026-week2-12S24041/
 
 ---
 
-### 6. Cara Menjalankan Proyek Secara Lokal
-1. Buka folder proyek di **Visual Studio Code**.
-2. Klik kanan pada berkas `index.html` dan pilih **"Open with Live Server"**.
-3. Akses portofolio di peramban pada alamat `http://127.0.0.1:5500/index.html`.
-4. Buka **DevTools (F12)** pada tab **Console** dan **Network** untuk melihat pemuatan data asinkron dan pengiriman formulir.
+### 6. Cara Menjalankan Proyek
+1. Buka folder proyek ini di **Visual Studio Code**.
+2. Klik kanan pada berkas `index.html` lalu pilih **"Open with Live Server"**.
+3. Buka Console dan tab Network (F12) untuk melihat data JSON dimuat dan pengiriman form berjalan.
 
 ---
 
 ### 7. Tautan Repositori & Live Deployment
-* **Repositori GitHub**: [https://github.com/NikahPanjaitan/ppw-2026-week2-12S24041](https://github.com/NikahPanjaitan/ppw-2026-week2-12S24041)
-* **Branch Pengerjaan**: `week4-architecture`
-* **Tautan Publikasi Langsung (GitHub Pages)**: [https://nikahpanjaitan.github.io/ppw-2026-week2-12S24041/](https://nikahpanjaitan.github.io/ppw-2026-week2-12S24041/)
+- **Repositori GitHub**: [https://github.com/NikahPanjaitan/ppw-2026-week2-12S24041](https://github.com/NikahPanjaitan/ppw-2026-week2-12S24041)
+- **Branch**: `week4-architecture`
+- **GitHub Pages**: [https://nikahpanjaitan.github.io/ppw-2026-week2-12S24041/](https://nikahpanjaitan.github.io/ppw-2026-week2-12S24041/)
